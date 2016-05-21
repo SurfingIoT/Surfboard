@@ -11,11 +11,8 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
  * @author vsenger
  */
 public class MQTTBroker  {
-    private static MQTTBroker instance = new MQTTBroker();
-    public static MQTTBroker getInstance() {
-        return instance;
-    }
-    private MQTTBroker() {}
+
+    public MQTTBroker() {}
     MqttClient client;
 
     public String MQTT_SERVER = "tcp://iot.eclipse.org:1883";
@@ -23,7 +20,27 @@ public class MQTTBroker  {
         client.setCallback(l);
     }
     public void subscribe(String queue) throws MqttException {
-        client.subscribe(queue);
+        try {
+            if (client == null) {
+                fixConnection();
+            }
+            if (!client.isConnected()) {
+                fixConnection();
+            }
+
+            Logger.getLogger(MQTTBroker.class.getName()).log(Level.INFO, "Subscribing to MQTT broker at queue " + queue);
+
+            client.subscribe(queue);
+
+        } catch (MqttException ex) {
+            Logger.getLogger(MQTTBroker.class.getName()).log(Level.SEVERE, "Error subscribing to MQTT broker " + ex.getMessage());
+            try {
+                fixConnection();
+            } catch (MqttException e) {
+                Logger.getLogger(MQTTBroker.class.getName()).log(Level.SEVERE, "Error fixing connecting " + e.getMessage());
+                throw new MqttException(e);
+            }
+        }
     }
     
     public void publish(String queue,String msg) throws MqttException {
