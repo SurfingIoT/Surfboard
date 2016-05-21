@@ -1,0 +1,12 @@
+MIDlet-1: CBdemoApp,,things.ThingsMQTT
+MIDlet-Vendor: Cinterion Wireless Modules GmbH
+MIDlet-Version: 1.0
+APN-PWD: orange
+Publish-Topic: /globalcode/things
+MIDlet-Name: CBdemoApp
+Oracle-MIDlet-Autostart: 1
+APN: orangeworld
+APN-USR: orange
+Subscribe-Topic: /globalcode/everything
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: IMP-NG

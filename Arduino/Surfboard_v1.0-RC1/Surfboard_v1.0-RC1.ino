@@ -3,19 +3,21 @@
 #include <NewPing.h>
 #include <Servo.h> 
 #include <DS1307RTC.h>
-#include <Time.h>
+#include <Time.h>THEDEVCONF
 #include <Wire.h>
 
-#include <SurfThing.h>
+#include <Thing.h>
 #include <IoTSurfboard.h>
+#include <SoftwareSerial.h>
+
 
 void setup() {
   board.setup(9600);  
   board.clockAdjustment();  
-  system.add("transistor",DIGITAL,      11);
-  system.add("red",       PWM,      5);
+  system.add("transistor",DIGITAL,  11);
+  system.add("red",       PWM,      10);
   system.add("green",     PWM,      6);
-  system.add("blue",      PWM,      10);
+  system.add("blue",      PWM,      5);
   system.add("relay",     DIGITAL,  4);
   system.add("speaker",   DIGITAL,  16);//A2
   system.add("alcohol",   ANALOG,   0);

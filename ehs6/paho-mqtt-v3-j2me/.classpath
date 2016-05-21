@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="res"/>
+	<classpathentry kind="con" path="org.elipse.mtj.JavaMEContainer/IMP-NG EHS5 Wireless Toolkit by Cinterion/IMP_NG_EHS5_REMOTE1"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

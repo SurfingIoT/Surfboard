@@ -29,9 +29,7 @@
         // Once a connection has been made, make a subscription and send a message.
         console.log("onConnect");
         client.subscribe("globalcode/things/surfboard177");
-        //message = new Paho.MQTT.Message("Webpage Connected");
-        //message.destinationName = "surfboard/sensor";
-        //client.send(message);
+
       }
 
       // called when the client loses its connection
@@ -53,14 +51,11 @@
         var light = obj.components[2].value;
         var temperature = obj.components[5].value;
         var humidity = obj.components[6].value;
-        //var tempText = document.querySelector('.temperature');
-        //tempText.val(temperature);
         $("#tAlcohol").val(alcohol);
         $("#tPot").val(potentiometer);
         $("#tLight").val(light);
         $("#tTemp").val(temperature);
         $("#tHumidity").val(humidity);
-        //$('input[name="temp"]').val("asasasasa" + temperature)
         if (obj.alcohol > 600) {
           alert("Someone is drinking alcohol!!!!!!");
         }

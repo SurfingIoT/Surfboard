@@ -1,0 +1,6 @@
+MIDlet-Version: 1.0.0
+MIDlet-Vendor: MIDlet Suite Vendor
+MIDlet-Jar-URL: PahoClientMqttV3JME.jar
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: IMP-NG
+MIDlet-Name: pahoMqttV3 MIDlet Suite

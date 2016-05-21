@@ -25,7 +25,6 @@ public class HelloMQTT {
                     System.out.println("Message " + message);
                     JSONObject jsonObject = (JSONObject) JSONValue.parse(message);
                     if (jsonObject == null || jsonObject.keySet() == null || jsonObject.keySet().iterator() == null) {
-                        //System.out.println("Erro json " + data);
                         return;
                     }
                     JSONArray components = (JSONArray) jsonObject.get("components");

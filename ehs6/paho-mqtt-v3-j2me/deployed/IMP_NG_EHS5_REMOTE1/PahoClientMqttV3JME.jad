@@ -1,0 +1,7 @@
+MIDlet-Jar-Size: 126796
+MIDlet-Jar-URL: PahoClientMqttV3JME.jar
+MIDlet-Name: pahoMqttV3 MIDlet Suite
+MIDlet-Vendor: MIDlet Suite Vendor
+MIDlet-Version: 1.0.0
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: IMP-NG
