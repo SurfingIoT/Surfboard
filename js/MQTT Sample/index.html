@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="author" content="@Globalcode" />
-    <link rel="shortcut icon" href="/img/icones/favicon.ico" type="image/x-icon" />
     <title>
       IoT Surfboard | by Globalcode
     </title>
@@ -54,7 +53,14 @@
         var light = obj.components[2].value;
         var temperature = obj.components[5].value;
         var humidity = obj.components[6].value;
-        
+        //var tempText = document.querySelector('.temperature');
+        //tempText.val(temperature);
+        $("#tAlcohol").val(alcohol);
+        $("#tPot").val(potentiometer);
+        $("#tLight").val(light);
+        $("#tTemp").val(temperature);
+        $("#tHumidity").val(humidity);
+        //$('input[name="temp"]').val("asasasasa" + temperature)
         if (obj.alcohol > 600) {
           alert("Someone is drinking alcohol!!!!!!");
         }
@@ -65,7 +71,7 @@
       }
       var status = 0;
       function relay() {
-        message = new Paho.MQTT.Message("relay?" + status);
+        message = new Paho.MQTT.Message("*/relay?" + status);
         status = status == 0 ? 1 : 0;
         message.destinationName = "globalcode/things";
         client.send(message);
@@ -75,6 +81,11 @@
   <body>
     <header>
     </header>
-
+      Alcohol <input type="text" id="tAlcohol"/><br/>
+      Potentiometer <input type="text" id="tPot"/><br/>
+      Light  <input type="text" id="tLight"/><br/>
+      Temperature <input type="text" id="tTemp"/><br/>
+      Humidity<input type="text" id="tHumidity"/><br/>
+      <img src="image/lamp.jpg" onclick="relay()"/>
   </body>
 </html>
