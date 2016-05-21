@@ -1,0 +1,80 @@
+<!DOCTYPE html >
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="author" content="@Globalcode" />
+    <link rel="shortcut icon" href="/img/icones/favicon.ico" type="image/x-icon" />
+    <title>
+      IoT Surfboard | by Globalcode
+    </title>
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+
+    <script type="text/javascript" src="js/mqttws31.js"></script>
+    <script type="text/javascript">
+      // Create a client instance
+      client = new Paho.MQTT.Client("ws://iot.eclipse.org/ws", "myClientId" + new Date().getTime());
+      //"iot.eclipse.org", 80, "aasAaaa");
+
+      // set callback handlers
+      client.onConnectionLost = onConnectionLost;
+      client.onMessageArrived = onMessageArrived;
+
+      // connect the client
+      client.connect({onSuccess: onConnect});
+
+
+      // called when the client connects
+      function onConnect() {
+        // Once a connection has been made, make a subscription and send a message.
+        console.log("onConnect");
+        client.subscribe("globalcode/things/surfboard177");
+        //message = new Paho.MQTT.Message("Webpage Connected");
+        //message.destinationName = "surfboard/sensor";
+        //client.send(message);
+      }
+
+      // called when the client loses its connection
+      function onConnectionLost(responseObject) {
+        if (responseObject.errorCode !== 0) {
+          console.log("onConnectionLost:" + responseObject.errorMessage);
+          //alert("conexao perdida" + responseObject.errorMessage);
+          client = new Paho.MQTT.Client("ws://iot.eclipse.org/ws", "myClientId" + new Date().getTime());
+
+        }
+      }
+
+      // called when a message arrives
+      function onMessageArrived(message) {
+        console.log("onMessageArrived:" + message.payloadString);
+        var obj = jQuery.parseJSON(message.payloadString);
+        var alcohol = obj.components[0].value;
+        var potentiometer = obj.components[1].value;
+        var light = obj.components[2].value;
+        var temperature = obj.components[5].value;
+        var humidity = obj.components[6].value;
+        
+        if (obj.alcohol > 600) {
+          alert("Someone is drinking alcohol!!!!!!");
+        }
+        if (light < 20) {
+          alert("you hand is near the light sensor!");
+        }
+
+      }
+      var status = 0;
+      function relay() {
+        message = new Paho.MQTT.Message("relay?" + status);
+        status = status == 0 ? 1 : 0;
+        message.destinationName = "globalcode/things";
+        client.send(message);
+      }
+    </script>
+  </head>
+  <body>
+    <header>
+    </header>
+
+  </body>
+</html>
