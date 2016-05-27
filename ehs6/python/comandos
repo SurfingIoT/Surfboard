@@ -1,0 +1,6 @@
+at^SJAM=0,"a:/ThingsMQTT.jad",""        instalar
+at^SJAM=1,"a:/RS232Demo.jar",""        start
+at^SJAM=2,"a:/Call4Fun.jad"        stop
+at^SJAM=3,"a:/Call4Fun.jad"        remove
+at^SJAM=4                LISTAR APPS
+

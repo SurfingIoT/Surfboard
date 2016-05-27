@@ -1,0 +1,15 @@
+APN: orangeworld
+APN-PWD: orange
+APN-USR: orange
+MIDlet-1: CBdemoApp,,things.ThingsMQTT
+MIDlet-Jar-Size: 192156
+MIDlet-Jar-URL: ThingsMQTT.jar
+MIDlet-Name: CBdemoApp
+MIDlet-Vendor: Cinterion Wireless Modules GmbH
+MIDlet-Version: 1.0
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: IMP-NG
+Oracle-MIDlet-Autostart: 1
+Publish-Topic: globalcode/things/surfboard3g
+Sensor-Reading-Interval: 30000
+Subscribe-Topic: globalcode/things
