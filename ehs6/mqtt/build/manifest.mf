@@ -4,7 +4,7 @@ MIDlet-Version: 1.0
 Baudrate: 9600
 MIDlet-Name: CBdemoApp
 Oracle-MIDlet-Autostart: 1
-COMPort: COM1
+COM-Port: COM1
 MIDlet-Vendor: Cinterion Wireless Modules GmbH
 APN-PWD: orange
 Publish-Topic: /globalcode/things

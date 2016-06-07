@@ -34,6 +34,7 @@ public class ThingsMQTT extends MIDlet {
     private String brokerUrl;
     private int brokerPort;
     private int baudRate;
+    private String comPort;
     private long sensorsInterval;
     private String publishTopic;
     private String subscribeTopic;
@@ -162,7 +163,7 @@ public class ThingsMQTT extends MIDlet {
         Timer watchdogTimer = new Timer();
         watchdogTimer.schedule(new MyWatchdogTimer(), 1000, 30000);
         Timer sensorsTimer = new Timer();
-        sensorsTimer.schedule(new SensorsTask(), 1000, 10000);
+        sensorsTimer.schedule(new SensorsTask(), 1000, sensorsInterval);
         initFinish = true;
 
         publishValue(null, qos, "Connected to Internet " + clientID);
@@ -360,6 +361,12 @@ public class ThingsMQTT extends MIDlet {
             subscribeTopic = generateSubscribeTopic();
         }
 
+        comPort = getAppProperty("COM-Port");
+        if (comPort
+                == null) {
+            comPort = "COM0";
+        }
+
         pin = getAppProperty("SIM-PIN");
 
         apn = getAppProperty("APN");
@@ -384,6 +391,12 @@ public class ThingsMQTT extends MIDlet {
                 "brokerUrl: " + brokerUrl);
         System.out.println(
                 "brokerPort: " + brokerPort);
+        System.out.println(
+                "baudRate: " + baudRate);
+        System.out.println(
+                "Sensors Interval: " + sensorsInterval);
+        System.out.println(
+                "COM Port: " + comPort);
         System.out.println(
                 "QoS: " + qos);
         System.out.println(
