@@ -5,7 +5,7 @@ Baudrate: 9600
 Broker-URL: tcp://iot.eclipse.org
 COM-Port: COM1
 MIDlet-1: Surfing3G,,org.surfing.gemalto.ThingsMQTT
-MIDlet-Jar-Size: 191476
+MIDlet-Jar-Size: 191489
 MIDlet-Jar-URL: ThingsMQTT.jar
 MIDlet-Name: CBdemoApp
 MIDlet-Vendor: Cinterion Wireless Modules GmbH

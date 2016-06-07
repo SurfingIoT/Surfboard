@@ -366,6 +366,7 @@ public class ThingsMQTT extends MIDlet {
                 == null) {
             comPort = "COM0";
         }
+        Surfboard.COMPort=comPort;
 
         pin = getAppProperty("SIM-PIN");
 
