@@ -37,6 +37,7 @@ public class Surfboard {
         byte response[] = new byte[2048];
         int counter = 0;
         try {
+            Thread.sleep(200);
             System.out.println("Waiting response RXTX...");
             for (int x = 0; x < 10; x++) {
                 Thread.sleep(40);
