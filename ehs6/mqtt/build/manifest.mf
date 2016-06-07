@@ -1,5 +1,5 @@
 MIDlet-1: Surfing3G,,org.surfing.gemalto.ThingsMQTT
-Broker-URL: iot.eclipse.org
+Broker-URL: tcp://iot.eclipse.org
 MIDlet-Version: 1.0
 Baudrate: 9600
 MIDlet-Name: CBdemoApp
