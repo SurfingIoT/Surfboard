@@ -13,13 +13,12 @@ String ssid = "iot-mobile";
 String password = "iotiotiot";
 String mqtt_server = "iot.eclipse.org";
 
-String queue_listener = "/globalcode/thing";
-String queue_broadcast = "globalcode/things";
-
-String queue_sensors = "globalcode/things";
-String queue_rendezvous = "/globalcode";
-String queue_sensors_id;
+String queue_listener;
+String queue_sensors;
+String queue_broadcast = "/iot-surfboard";
+String queue_rendezvous;
 String deviceName = "surfboard";
+
 long sensor_interval = 15000;
 long connection_timeout = 0;
 WiFiClient espClient;
@@ -35,22 +34,31 @@ void setup() {
   Serial.begin(9600);
   Serial.setTimeout(1000);
   Serial.print("start");
-
+  emptySerial();
+  emptySerial();
   delay(5000);
   emptySerial();
-  read_memory();
   Serial.print("name");
-  delay(500);
+  //delay(500);
+  Serial.flush();
   deviceName = Serial.readString();
-  if (deviceName.length() == 0) {
-    deviceName = "surfboard0";
+  if (deviceName.length() == 0 || deviceName.startsWith(" ")) {
+    deviceName = "surfboard-hue";
+  }
+  else {
+    //taking out the line termination to avoid problem with MQTT QUEUE names
+    deviceName.replace("\n", "");
+    deviceName = deviceName.substring(0, deviceName.length() - 1);
   }
   Serial.print("Device name: ");
+  Serial.println(deviceName.length());
   Serial.println(deviceName);
-  emptySerial();  
-  delay(500);  
-  queue_listener = queue_listener + "/" + deviceName;
-  queue_sensors_id  = queue_sensors  + "/" + deviceName;
+  emptySerial();
+  delay(500);
+  queue_rendezvous = "/iot-surfboard/" + deviceName;
+  queue_listener = "/iot-surfboard/control/" + deviceName;
+  queue_sensors  = "/iot-surfboard/sensors/" + deviceName;
+
   read_memory();
 
   Serial.print("red?255");
@@ -87,49 +95,49 @@ void setup_wifi() {
   }
   Serial.print("blue?0");
   if (WiFi.status() != WL_CONNECTED) return;
+  createWebServer(1);
+
   delay(500);
   Serial.print("green?255");
-  client.setServer(mqtt_server_factory.c_str(), 1883);
+  client.setServer(mqtt_server.c_str(), 1883);
   client.setCallback(callback);
   delay(1500);
   Serial.print("green?0");
   emptySerial();
-  createWebServer(1);
   // Start the server
   server.begin();
 }
 
 void reconnect() {
   Serial.print("red?255");
-  while (!client.connected()) {
-    toChar(deviceName);
-    if (client.connect(deviceName.c_str())) {
-      toChar("new-device:" + deviceName);
-      client.publish(queue_rendezvous.c_str(), buffer);
-      //discovery();
-      client.subscribe(queue_broadcast.c_str());
-      client.subscribe(queue_listener.c_str());
-      Serial.print("red?0");
-    } else {
-      Serial.print("red?255");
-      delay(1000);
-      Serial.print("red?0");
-      delay(1000);
-      Serial.print("red?255");
-      delay(1000);
-      Serial.print("red?0");
-      delay(1000);
-    }
+  toChar(deviceName);
+  if (client.connect(deviceName.c_str())) {
+    toChar("new-device:" + deviceName);
+    client.publish(queue_rendezvous.c_str(), buffer);
+    IPAddress ip = WiFi.localIP();
+    String ipStr = String(ip[0]) + '.' + String(ip[1]) + '.' + String(ip[2]) + '.' + String(ip[3]);
+    toChar(ipStr);
+    client.publish(queue_rendezvous.c_str(), buffer);
+    client.subscribe(queue_broadcast.c_str());
+    client.subscribe(queue_listener.c_str());
+    Serial.print("red?0");
   }
-  emptySerial();
 }
-void loop() {
 
-  if (!client.connected()) {
+void loop() {
+  server.handleClient();
+
+  if (!client.connected() && wifi_state == 0) {
+    wifi_state = 1;
     reconnect();
   }
+  else if (!client.connected() && wifi_state == 1) {
+    connection_timeout = millis();
+    setup_wifi();
+    reconnect();
+  }
+
   client.loop();
-  server.handleClient();
   long now = millis();
   if (sensor_interval > 0 && now - lastMsg > sensor_interval) {
     lastMsg = now;
@@ -137,10 +145,10 @@ void loop() {
     Serial.flush();
     String sensors = Serial.readString();
     toChar(sensors);
-    debug(buffer);
-    emptySerial();
     client.publish(queue_sensors.c_str(), buffer);
-    client.publish(queue_sensors_id.c_str(), buffer);
+    //debug(buffer);
+    emptySerial();
+    //client.publish(queue_sensors_id.c_str(), buffer);
   }
   while (Serial.available()) {
     char inChar = (char)Serial.read();
@@ -189,6 +197,7 @@ void executeCommand() {
     beep();
   }
   else if (commandString.indexOf("config-reconnect") > -1) {
+    wifi_state = 0;
     setup_wifi();
     beep();
   }
@@ -204,8 +213,8 @@ void executeCommand() {
     restore();
     beep();
   }
-  else if (commandString.indexOf("*/")>-1) {
-    String t = commandString.substring(2,commandString.length());
+  else if (commandString.indexOf("*/") > -1) {
+    String t = commandString.substring(2, commandString.length());
     Serial.print(t);
   }
   else {
@@ -231,7 +240,7 @@ void discovery() {
 
 
 void save() {
-  for (int x = 0; x < 512; x++) EEPROM.write(x, 0);
+  for (int x = 0; x < 512; x++) EEPROM.write(x, ' ');
   EEPROM.write(511, 'I');
   for (int x = 0; x < ssid.length(); x++) {
     EEPROM.write(x, ssid[x]);
@@ -240,24 +249,26 @@ void save() {
     EEPROM.write(x + 32, password[x]);
   }
   for (int x = 0; x < mqtt_server.length(); x++) {
-    EEPROM.write(x + 64, mqtt_server[x]);
+    EEPROM.write(x + 96, mqtt_server[x]);
   }
   for (int x = 0; x < queue_listener.length(); x++) {
-    EEPROM.write(x + 96, queue_listener[x]);
+    EEPROM.write(x + 160, queue_listener[x]);
   }
   for (int x = 0; x < queue_sensors.length(); x++) {
-    EEPROM.write(x + 128, queue_sensors[x]);
+    EEPROM.write(x + 224, queue_sensors[x]);
   }
   for (int x = 0; x < queue_broadcast.length(); x++) {
-    EEPROM.write(x + 160, queue_broadcast[x]);
+    EEPROM.write(x + 288, queue_broadcast[x]);
   }
   for (int x = 0; x < queue_rendezvous.length(); x++) {
-    EEPROM.write(x + 192, queue_rendezvous[x]);
+    EEPROM.write(x + 352, queue_rendezvous[x]);
   }
-  String temp = String(sensor_interval);
-  for (int x = 0; x < temp.length(); x++) {
-    EEPROM.write(x + 224, temp[x]);
-  }
+  /*String temp = String(sensor_interval);
+    temp.replace("\n","");
+    temp.replace("\0","");
+    for (int x = 0; x < temp.length(); x++) {
+    EEPROM.write(x + 416, temp[x]);
+    }*/
   EEPROM.commit();
 }
 
@@ -280,42 +291,57 @@ void read_memory() {
     password += char(EEPROM.read(i));
   }
   mqtt_server = "";
-  for (int i = 64; i < 96; i++)
+  for (int i = 96; i < 160; i++)
   {
     mqtt_server += char(EEPROM.read(i));
   }
   queue_listener = "";
-  for (int i = 96; i < 128; i++)
+  for (int i = 160; i < 224; i++)
   {
     queue_listener += char(EEPROM.read(i));
   }
   queue_sensors = "";
-  for (int i = 128; i < 160; i++)
+  for (int i = 224; i < 288; i++)
   {
     queue_sensors += char(EEPROM.read(i));
   }
   queue_broadcast = "";
-  for (int i = 160; i < 192; i++)
+  for (int i = 288; i < 352; i++)
   {
     queue_broadcast += char(EEPROM.read(i));
   }
   queue_rendezvous = "";
-  for (int i = 192; i < 224; i++)
+  for (int i = 352; i < 416; i++)
   {
     queue_rendezvous += char(EEPROM.read(i));
   }
-  String interval = "";
-  for (int i = 224; i < 234; i++)
-  {
+  /*String interval = "";
+    for (int i = 416; i < 234; i++)
+    {
     interval += char(EEPROM.read(i));
-  }
-  sensor_interval = atoi(interval.c_str());
+    }
+    sensor_interval = atoi(interval.c_str());*/
+  ssid.trim();
+  password.trim();
+  mqtt_server.trim();
+  queue_sensors.trim();
+  queue_rendezvous.trim();
+  queue_broadcast.trim();
+  queue_listener.trim();
+  
+  queue_sensors.replace("\0","");
+  queue_broadcast.replace("\0","");
+  queue_rendezvous.replace("\0","");
+  queue_listener.replace("\0","");
+  
   Serial.println("Finshed reading memory");
   Serial.println(ssid);
   Serial.println(password);
+  Serial.println(mqtt_server);
   Serial.println(queue_sensors);
   Serial.println(queue_broadcast);
   Serial.println(queue_rendezvous);
+  Serial.println(queue_listener);
   Serial.println(sensor_interval);
   
   emptySerial();
@@ -328,6 +354,7 @@ void toChar(String s) {
 
 void emptySerial() {
   //descartando a resposta...
+  Serial.flush();
   while (Serial.available()) {
     Serial.read();
   }
@@ -339,6 +366,7 @@ void debug(String msg) {
 }
 
 void beep() {
+  Serial.flush();
   Serial.print("speaker?1");
   Serial.flush();
   emptySerial();
