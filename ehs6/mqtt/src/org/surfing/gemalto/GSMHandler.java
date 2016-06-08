@@ -16,7 +16,6 @@ package org.surfing.gemalto;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-
 import com.cinterion.io.ATCommand;
 import com.cinterion.io.ATCommandFailedException;
 import com.cinterion.io.ATCommandListener;
@@ -218,8 +217,11 @@ public class GSMHandler implements ATCommandListener {
     public void ATEvent(String urc) {
         System.out.println("GSMHandler:ATEvent()+");
         String event = "";
-
-        if ((urc != null) && (urc.indexOf("CMT") > 0)) {
+        if (urc!=null && urc.indexOf("+CMTI") > 0) {
+            String content = getSmsContent(urc, false);
+            System.out.println("Sms content: " + content);
+            mainML.publishValue(ThingsMQTT.queueSMS, 0, content);
+        } else if ((urc != null) && (urc.indexOf("CMT") > 0)) {
             System.out.println("SMS URC");
             event = "SMS arrived!";
         } else if ((urc != null) && (urc.indexOf("CIEV") > 0)) {
@@ -239,9 +241,39 @@ public class GSMHandler implements ATCommandListener {
         System.out.println("GSMHandler:ATEvent()-");
     }
 
+    private String getSmsContent(String arg0, boolean deleteSms) {
+        // index of received SMS message in the memory
+        int idx = arg0.indexOf(",");
+        String sms_positionInMemory = arg0.substring(idx + 1, idx + 3);
+        // get the SMS content
+        String contentOfSms = "";
+        try {
+            // get the message from the index position
+            String response = atc.send("AT+CMGR=" + sms_positionInMemory + "\r");
+            System.out.println(response);
+            // delete the SMS
+            if (deleteSms) {
+                atc.send("AT+CMGD=" + sms_positionInMemory + "\r");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            contentOfSms = null;
+        }
+        return contentOfSms;
+    }
+
     public void RINGChanged(boolean bln) {
-        System.out.println("GSMHandler:RINGChanged()+");
-        System.out.println("GSMHandler:RINGChanged()-");
+        try {
+            System.out.println("GSMHandler:RINGChanged()+");
+            mainML.surfboard.execute("speaker?1");
+            Thread.sleep(400);
+            mainML.surfboard.execute("speaker?0");
+            System.out.println("GSMHandler:RINGChanged()-");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void DCDChanged(boolean bln) {

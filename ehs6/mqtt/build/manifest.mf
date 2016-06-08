@@ -6,6 +6,7 @@ Queue-Rendezvous: /iot-surfboard
 Baudrate: 9600
 MIDlet-Name: CBdemoApp
 Oracle-MIDlet-Autostart: 1
+Queue-SMS: /iot-surfboard/sms/surfboard-ehs6t
 COM-Port: COM1
 MIDlet-Vendor: Cinterion Wireless Modules GmbH
 Queue-Listener: /iot-surfboard/control/surfboard-ehs6t

@@ -34,10 +34,11 @@ public class ThingsMQTT extends MIDlet {
     private String brokerUrl;
     private int brokerPort;
     private long sensorsInterval;
-    private String queueBroadcast;
-    private String queueListener;
-    private String queueSensors;
-    private String queueRendezvous;
+    public static String queueBroadcast;
+    public static String queueListener;
+    public static String queueSensors;
+    public static String queueRendezvous;
+    public static String queueSMS;
 
     //private String publishTopic;
     // private String subscribeTopic;
@@ -45,11 +46,11 @@ public class ThingsMQTT extends MIDlet {
     private String deviceTypeID;
     private String clientID;
 
-    private MQTTHandler mqttH;
+    public MQTTHandler mqttH;
     private ADC adc;
     private ADCListener adcListener;
     private Watchdog2 wd = null;
-    private Surfboard surfboard;
+    public Surfboard surfboard;
     private boolean initFinish = false;
 
     public ThingsMQTT() {
@@ -378,11 +379,15 @@ public class ThingsMQTT extends MIDlet {
             queueBroadcast = "/iot-surfboard/everything";
         }
         queueRendezvous = getAppProperty("Queue-Rendevouz");
-        if (queueBroadcast
+        if (queueRendezvous
                 == null) {
-            queueBroadcast = "/iot-surfboard";
+            queueRendezvous = "/iot-surfboard";
         }
-
+        queueSMS = getAppProperty("Queue-SMS");
+        if (queueSMS
+                == null) {
+            queueSMS = "/iot-surfboard/sms/surfboard-ehs6t";
+        }
         Surfboard.COMPort = getAppProperty("COM-Port");
         if (Surfboard.COMPort
                 == null) {
@@ -429,6 +434,8 @@ public class ThingsMQTT extends MIDlet {
                 "Queue-Broadcast: " + queueBroadcast);
         System.out.println(
                 "Queue-Rendezvous: " + queueRendezvous);
+        System.out.println(
+                "Queue-SMS: " + queueSMS);
         System.out.println(
                 "SIM PIN: " + pin);
         System.out.println(
