@@ -52,6 +52,9 @@ public class GSMHandler implements ATCommandListener {
 
         // sendATC("AT^SPOW=1,0,0\r");
         sendATC("ATE0\r");
+        //to support SMS text
+        sendATC("at+cmgf=1\r");
+        sendATC("at+cnmi=2,1\r");
         System.out.println("GSMHandler:GSMHandler()-");
     }
 
@@ -217,7 +220,7 @@ public class GSMHandler implements ATCommandListener {
     public void ATEvent(String urc) {
         System.out.println("GSMHandler:ATEvent()+");
         String event = "";
-        if (urc!=null && urc.indexOf("+CMTI") > 0) {
+        if (urc != null && urc.indexOf("+CMTI") > 0) {
             String content = getSmsContent(urc, false);
             System.out.println("Sms content: " + content);
             //if(ThingsMQTT.AUDIT_SMS_TO_MQTT
@@ -268,8 +271,10 @@ public class GSMHandler implements ATCommandListener {
         try {
             System.out.println("GSMHandler:RINGChanged()+");
             mainML.surfboard.execute("speaker?1");
-            Thread.sleep(400);
+            Thread.sleep(200);
             mainML.surfboard.execute("speaker?0");
+            Thread.sleep(600);
+
             System.out.println("GSMHandler:RINGChanged()-");
         } catch (IOException ex) {
             ex.printStackTrace();
