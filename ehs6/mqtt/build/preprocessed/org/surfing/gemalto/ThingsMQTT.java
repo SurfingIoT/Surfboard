@@ -49,7 +49,7 @@ public class ThingsMQTT extends MIDlet {
     private ADC adc;
     private ADCListener adcListener;
     private Watchdog2 wd = null;
-
+    private Surfboard surfboard;
     private boolean initFinish = false;
 
     public ThingsMQTT() {
@@ -137,6 +137,14 @@ public class ThingsMQTT extends MIDlet {
         } catch (MqttException e) {
             System.out.println("!Exception at connecting!");
         }
+        System.out.println("Starting Serial connection with Surfboard...");
+        surfboard = new Surfboard();
+        try {
+            surfboard.open();
+        } catch (IOException ex) {
+            System.out.println("!Exception at connecting with Surfboard!");
+            ex.printStackTrace();
+        }
 
         // ############# demo functions ###################
         // monitor and post the the memory status
@@ -168,7 +176,7 @@ public class ThingsMQTT extends MIDlet {
         sensorsTimer.schedule(new SensorsTask(), 1000, sensorsInterval);
         initFinish = true;
 
-        publishValue(null, qos, "Connected to Internet " + clientID);
+        publishValue(queueRendezvous, qos, "EHS6 device Connected to Internet " + clientID);
 
         System.out.println("ThingsMQTT:startApp()-");
     }
@@ -185,17 +193,23 @@ public class ThingsMQTT extends MIDlet {
         System.out.println("ThingsMQTT:mqttMessageArrived()-");
         if (message.toUpperCase().startsWith("SMS://")) {
             String command = message.substring(6, message.length());
-            SMSAction.execute(command, this);
+            synchronized (this) {
+                SMSAction.execute(command, this);
+            }
         } else if (message.toUpperCase().startsWith("BOARD://")) {
             try {
                 String command = message.substring(8, message.length());
-                Surfboard.execute(command);
+                synchronized (this) {
+                    surfboard.execute(command);
+                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         } else {
             try {
-                Surfboard.execute(message);
+                synchronized (this) {
+                    surfboard.execute(message);
+                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -506,7 +520,7 @@ public class ThingsMQTT extends MIDlet {
 
         public void run() {
             try {
-                String sensors = Surfboard.execute("sensors");
+                String sensors = surfboard.execute("sensors");
                 publishValue(queueSensors, qos, sensors);
             } catch (IOException ex) {
                 ex.printStackTrace();

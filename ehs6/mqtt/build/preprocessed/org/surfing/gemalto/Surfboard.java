@@ -17,15 +17,13 @@ import javax.microedition.io.Connector;
  */
 public class Surfboard {
 
-    static CommConnection commConn;
-    static InputStream inStream;
-    static OutputStream outStream;
+    CommConnection commConn;
+    InputStream inStream;
+    OutputStream outStream;
     static String COMPort;
     static int baudRate;
-    
 
-    public static String execute(String command) throws IOException {
-        String strResponse = null;
+    public void open() throws IOException {
         System.out.println("Available COM-Ports: " + System.getProperty("microedition.commports"));
         String strCOM = "comm:" + COMPort + ";blocking=on;baudrate=" + baudRate;
         commConn = (CommConnection) Connector.open(strCOM);
@@ -33,6 +31,12 @@ public class Surfboard {
         System.out.println("Real baud rate: " + commConn.getBaudRate());
         inStream = commConn.openInputStream();
         outStream = commConn.openOutputStream();
+
+    }
+
+    public synchronized String execute(String command) throws IOException {
+        String strResponse = null;
+
         System.out.println("Sending command " + command + " to Surfboard");
         outStream.write(command.getBytes());
         byte response[] = new byte[2048];
@@ -51,11 +55,16 @@ public class Surfboard {
             System.out.println(strResponse);
         } catch (InterruptedException ex) {
             ex.printStackTrace();
+            System.out.println("Trying to re-stabilish serial connection...");
+            close();
+            open();
         }
-        inStream.close();
-        outStream.close();
-        commConn.close();
         return strResponse;
     }
 
+    public void close() throws IOException {
+        inStream.close();
+        outStream.close();
+        commConn.close();
+    }
 }

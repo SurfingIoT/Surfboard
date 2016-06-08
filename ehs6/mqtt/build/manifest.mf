@@ -11,7 +11,7 @@ MIDlet-Vendor: Cinterion Wireless Modules GmbH
 Queue-Listener: /iot-surfboard/control/surfboard-ehs6t
 Queue-Sensors: /iot-surfboard/sensors/surfboard-ehs6t
 APN-PWD: orange
-Sensors-Interval: 15000
+Sensors-Interval: 30000
 APN: orangeworld
 APN-USR: orange
 MicroEdition-Configuration: CLDC-1.1
