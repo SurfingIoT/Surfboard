@@ -25,7 +25,7 @@ public class ThingsMQTT extends MIDlet {
     public static long DEF_INTERVAL = 15000;
     public static String DEF_DEV_TYPE_ID = "d2447d4f-fb74-48d8-8eb8-45013932284b";
 
-    private GSMHandler gsmH;
+    public GSMHandler gsmH;
     private String apn;
     private String apn_usr;
     private String apn_pwd;
@@ -33,11 +33,14 @@ public class ThingsMQTT extends MIDlet {
 
     private String brokerUrl;
     private int brokerPort;
-    private int baudRate;
-    private String comPort;
     private long sensorsInterval;
-    private String publishTopic;
-    private String subscribeTopic;
+    private String queueBroadcast;
+    private String queueListener;
+    private String queueSensors;
+    private String queueRendezvous;
+
+    //private String publishTopic;
+    // private String subscribeTopic;
     private int qos;
     private String deviceTypeID;
     private String clientID;
@@ -129,8 +132,7 @@ public class ThingsMQTT extends MIDlet {
         }
 
         try {
-            // subscribe for receiving the data
-            mqttH.subscribe(subscribeTopic, qos);
+            subscribeTopics();
 
         } catch (MqttException e) {
             System.out.println("!Exception at connecting!");
@@ -181,30 +183,23 @@ public class ThingsMQTT extends MIDlet {
         System.out.println("Topic: " + topic);
         System.out.println("Message: " + message);
         System.out.println("ThingsMQTT:mqttMessageArrived()-");
-        //Actions.messageToAction(message);
-        String phone = message.substring(0, message.indexOf(";"));
-        String msg = message.substring(message.indexOf(";") + 1, message.length());
-        try {
-            System.out.println("Phone to send: " + phone);
-            System.out.println("Message to send: " + msg);
-            String smsAtCommand = "AT+CMGS=\"" + phone + "\"\r";
-            //simple SMS mode CMGF=1\
-            System.out.println("Seding command AT+CMGF=1\r");
-            System.out.println(gsmH.sendATC("AT+CMGF=1\r"));
-            System.out.println("Command AT:" + smsAtCommand);
-            System.out.println(gsmH.sendATC(smsAtCommand));
-            System.out.println("Sending message:" + (msg + (char) 26));
-            System.out.println(gsmH.sendATC(msg + (char) 26));
-        } catch (Exception ex) {
-            System.out.println("SMS failed " + ex.getMessage());
+        if (message.toUpperCase().startsWith("SMS://")) {
+            String command = message.substring(6, message.length());
+            SMSAction.execute(command, this);
+        } else if (message.toUpperCase().startsWith("BOARD://")) {
+            try {
+                String command = message.substring(8, message.length());
+                Surfboard.execute(command);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            try {
+                Surfboard.execute(message);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
-        /*try {
-         // subscribe for receiving the data
-         mqttH.subscribe(subscribeTopic, qos);
-
-         } catch (MqttException e) {
-         System.out.println("!Exception at connecting!");
-         }*/
     }
 
     public void mqttDeliveryComplete() {
@@ -225,13 +220,19 @@ public class ThingsMQTT extends MIDlet {
         try {
             mqttH.connectToBrocker();
             // subscribe for receiving the data
-            mqttH.subscribe(subscribeTopic, qos);
+            subscribeTopics();
         } catch (MqttSecurityException e1) {
             e1.printStackTrace();
         } catch (MqttException e1) {
             e1.printStackTrace();
         }
         System.out.println("ThingsMQTT:mqttConnectionLost()-");
+    }
+
+    public void subscribeTopics() throws MqttException {
+        mqttH.subscribe(queueListener, qos);
+        mqttH.subscribe(queueBroadcast, qos);
+
     }
 
     public void publishValue(String topic, int qos, String msg) {
@@ -242,7 +243,7 @@ public class ThingsMQTT extends MIDlet {
         }
 
         if (topic == null) {
-            topic = publishTopic;
+            topic = queueSensors;
         }
 
         try {
@@ -306,17 +307,15 @@ public class ThingsMQTT extends MIDlet {
         if (tmpVal != null) {
 
             try {
-                baudRate = Integer.parseInt(tmpVal);
+                Surfboard.baudRate = Integer.parseInt(tmpVal);
             } catch (NumberFormatException e) {
-                baudRate = DEF_BAUDRATE;
+                Surfboard.baudRate = DEF_BAUDRATE;
             }
         } else {
-            baudRate = DEF_BAUDRATE;
+            Surfboard.baudRate = DEF_BAUDRATE;
         }
-        Surfboard.baudRate = baudRate;
         tmpVal = getAppProperty("Sensors-Interval");
         if (tmpVal != null) {
-
             try {
                 sensorsInterval = Long.parseLong(tmpVal);
             } catch (NumberFormatException e) {
@@ -349,24 +348,32 @@ public class ThingsMQTT extends MIDlet {
             qos = DEF_QOS;
         }
 
-        publishTopic = getAppProperty("Publish-Topic");
-        if (publishTopic
+        queueSensors = getAppProperty("Queue-Sensors");
+        if (queueSensors
                 == null) {
-            publishTopic = generatePublishTopic();
+            queueSensors = "/iot-surfboard/sensors/default";
+        }
+        queueListener = getAppProperty("Queue-Listener");
+        if (queueListener
+                == null) {
+            queueListener = "/iot-surfboard/control/default";
+        }
+        queueBroadcast = getAppProperty("Queue-Broadcast");
+        if (queueBroadcast
+                == null) {
+            queueBroadcast = "/iot-surfboard/everything";
+        }
+        queueRendezvous = getAppProperty("Queue-Rendevouz");
+        if (queueBroadcast
+                == null) {
+            queueBroadcast = "/iot-surfboard";
         }
 
-        subscribeTopic = getAppProperty("Subscribe-Topic");
-        if (subscribeTopic
+        Surfboard.COMPort = getAppProperty("COM-Port");
+        if (Surfboard.COMPort
                 == null) {
-            subscribeTopic = generateSubscribeTopic();
+            Surfboard.COMPort = "COM0";
         }
-
-        comPort = getAppProperty("COM-Port");
-        if (comPort
-                == null) {
-            comPort = "COM0";
-        }
-        Surfboard.COMPort=comPort;
 
         pin = getAppProperty("SIM-PIN");
 
@@ -393,17 +400,21 @@ public class ThingsMQTT extends MIDlet {
         System.out.println(
                 "brokerPort: " + brokerPort);
         System.out.println(
-                "baudRate: " + baudRate);
+                "baudRate: " + Surfboard.baudRate);
         System.out.println(
                 "Sensors Interval: " + sensorsInterval);
         System.out.println(
-                "COM Port: " + comPort);
+                "COM Port: " + Surfboard.COMPort);
         System.out.println(
                 "QoS: " + qos);
         System.out.println(
-                "publishTopic: " + publishTopic);
+                "Queue-Sensors: " + queueSensors);
         System.out.println(
-                "subscribeTopic: " + subscribeTopic);
+                "Queue-Listener: " + queueListener);
+        System.out.println(
+                "Queue-Broadcast: " + queueBroadcast);
+        System.out.println(
+                "Queue-Rendezvous: " + queueRendezvous);
         System.out.println(
                 "SIM PIN: " + pin);
         System.out.println(
@@ -411,23 +422,6 @@ public class ThingsMQTT extends MIDlet {
 
         System.out.println(
                 "ThingsMQTT:readJADSettings()-");
-    }
-
-    public String generatePublishTopic() {
-        String topic = "";
-
-        topic = "m2mgo/" + deviceTypeID + "/" + clientID + "/data";
-
-        return topic;
-    }
-
-    public String generateSubscribeTopic() {
-        String topic = "";
-
-        topic = "m2mgo/" + deviceTypeID + "/" + clientID + "/command";
-
-        return topic;
-
     }
 
     class MyADCListener implements ADCListener {
@@ -513,7 +507,7 @@ public class ThingsMQTT extends MIDlet {
         public void run() {
             try {
                 String sensors = Surfboard.execute("sensors");
-                publishValue(null, qos, sensors);
+                publishValue(queueSensors, qos, sensors);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

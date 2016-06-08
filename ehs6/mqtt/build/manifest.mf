@@ -1,16 +1,18 @@
 MIDlet-1: Surfing3G,,org.surfing.gemalto.ThingsMQTT
 Broker-URL: tcp://iot.eclipse.org
 MIDlet-Version: 1.0
+Queue-Broadcast: /iot-surfboard/everything
+Queue-Rendezvous: /iot-surfboard
 Baudrate: 9600
 MIDlet-Name: CBdemoApp
 Oracle-MIDlet-Autostart: 1
 COM-Port: COM1
 MIDlet-Vendor: Cinterion Wireless Modules GmbH
+Queue-Listener: /iot-surfboard/control/surfboard-ehs6t
+Queue-Sensors: /iot-surfboard/sensors/surfboard-ehs6t
 APN-PWD: orange
-Publish-Topic: /globalcode/things
 Sensors-Interval: 15000
 APN: orangeworld
 APN-USR: orange
-Subscribe-Topic: /globalcode/everything
 MicroEdition-Configuration: CLDC-1.1
 MicroEdition-Profile: IMP-NG

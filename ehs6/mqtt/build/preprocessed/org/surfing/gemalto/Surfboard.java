@@ -23,6 +23,7 @@ public class Surfboard {
     static String COMPort;
     static int baudRate;
     
+
     public static String execute(String command) throws IOException {
         String strResponse = null;
         System.out.println("Available COM-Ports: " + System.getProperty("microedition.commports"));
