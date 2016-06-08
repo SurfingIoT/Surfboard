@@ -256,8 +256,8 @@ public class GSMHandler implements ATCommandListener {
             // get the message from the index position
             String response = atc.send("AT+CMGR=" + sms_positionInMemory + "\r");
             System.out.println("Complete Response: " + response);
-            contentOfSms = response.substring(response.indexOf("\n"), response.length());
-            contentOfSms = contentOfSms.substring(contentOfSms.indexOf("\n"), contentOfSms.length());
+            contentOfSms = response.substring(response.indexOf("\r"), response.length());
+            //contentOfSms = contentOfSms.substring(contentOfSms.indexOf("\n"), contentOfSms.length());
             
             // delete the SMS
             if (deleteSms) {
