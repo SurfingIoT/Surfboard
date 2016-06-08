@@ -185,13 +185,7 @@ public class ThingsMQTT extends MIDlet {
     public void gsmEvent(String event) {
         publishValue(null, qos, "event=" + event);
     }
-
-    public void mqttMessageArrived(String topic, String message) {
-        System.out.println("ThingsMQTT:mqttMessageArrived()+");
-        System.out.println("Msg arrived!");
-        System.out.println("Topic: " + topic);
-        System.out.println("Message: " + message);
-        System.out.println("ThingsMQTT:mqttMessageArrived()-");
+    public void executeAction(String message) {
         if (message.toUpperCase().startsWith("SMS://")) {
             String command = message.substring(6, message.length());
             synchronized (this) {
@@ -215,6 +209,15 @@ public class ThingsMQTT extends MIDlet {
                 ex.printStackTrace();
             }
         }
+        
+    }
+    public void mqttMessageArrived(String topic, String message) {
+        System.out.println("ThingsMQTT:mqttMessageArrived()+");
+        System.out.println("Msg arrived!");
+        System.out.println("Topic: " + topic);
+        System.out.println("Message: " + message);
+        executeAction(message);
+        System.out.println("ThingsMQTT:mqttMessageArrived()-");
     }
 
     public void mqttDeliveryComplete() {

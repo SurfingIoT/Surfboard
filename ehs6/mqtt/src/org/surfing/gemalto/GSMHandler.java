@@ -220,7 +220,9 @@ public class GSMHandler implements ATCommandListener {
         if (urc!=null && urc.indexOf("+CMTI") > 0) {
             String content = getSmsContent(urc, false);
             System.out.println("Sms content: " + content);
+            //if(ThingsMQTT.AUDIT_SMS_TO_MQTT
             mainML.publishValue(ThingsMQTT.queueSMS, 0, content);
+            mainML.executeAction(content);
         } else if ((urc != null) && (urc.indexOf("CMT") > 0)) {
             System.out.println("SMS URC");
             event = "SMS arrived!";
