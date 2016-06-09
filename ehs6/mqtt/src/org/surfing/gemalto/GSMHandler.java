@@ -278,9 +278,8 @@ public class GSMHandler implements ATCommandListener {
         try {
             System.out.println("GSMHandler:RINGChanged()+");
             mainML.surfboard.execute("speaker?1");
-            Thread.sleep(200);
+            Thread.sleep(100);
             mainML.surfboard.execute("speaker?0");
-            Thread.sleep(600);
 
             System.out.println("GSMHandler:RINGChanged()-");
         } catch (IOException ex) {
