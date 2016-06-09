@@ -11,9 +11,9 @@ COM-Port: COM1
 MIDlet-Vendor: Cinterion Wireless Modules GmbH
 Queue-Listener: /iot-surfboard/control/surfboard-ehs6t
 Queue-Sensors: /iot-surfboard/sensors/surfboard-ehs6t
-APN-PWD: orange
+APN-PWD: vivo
 Sensors-Interval: 30000
-APN: orangeworld
-APN-USR: orange
+APN: zap.vivo.com.br
+APN-USR: vivo
 MicroEdition-Configuration: CLDC-1.1
 MicroEdition-Profile: IMP-NG

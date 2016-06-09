@@ -1,11 +1,11 @@
-APN: orangeworld
-APN-PWD: orange
-APN-USR: orange
+APN: zap.vivo.com.br
+APN-PWD: vivo
+APN-USR: vivo
 Baudrate: 9600
 Broker-URL: tcp://iot.eclipse.org
 COM-Port: COM1
 MIDlet-1: Surfing3G,,org.surfing.gemalto.ThingsMQTT
-MIDlet-Jar-Size: 193681
+MIDlet-Jar-Size: 193683
 MIDlet-Jar-URL: ThingsMQTT.jar
 MIDlet-Name: CBdemoApp
 MIDlet-Vendor: Cinterion Wireless Modules GmbH
