@@ -270,7 +270,7 @@ public class GSMHandler implements ATCommandListener {
                 }
             }
             
-            contentOfSms= response.substring(posini,response.length()-8);
+            contentOfSms= response.substring(posini,response.length()-9);
             
             //contentOfSms = contentOfSms.substring(contentOfSms.indexOf("\n"), contentOfSms.length());
             
