@@ -55,7 +55,7 @@ public class GSMHandler implements ATCommandListener {
         //to support SMS text
         System.out.println("Enabling SMS Text");
         sendATC("at+cmgf=1\r");
-        sendATC("at+cnmi=2,1\r");
+        //sendATC("at+cnmi=2,1\r");
         System.out.println("GSMHandler:GSMHandler()-");
     }
 
