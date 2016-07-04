@@ -249,6 +249,7 @@ public class ThingsMQTT extends MIDlet {
 
     public void subscribeTopics() throws MqttException {
         mqttH.subscribe(queueListener, qos);
+        mqttH.subscribe(queueSMS, qos);
         mqttH.subscribe(queueBroadcast, qos);
 
     }
