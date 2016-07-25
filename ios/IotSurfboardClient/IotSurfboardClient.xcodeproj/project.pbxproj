@@ -1,0 +1,455 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		13E1AE381A3D5FA804975F83 /* libPods-IotSurfboardClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 291AC8E00F05B92DD351FB11 /* libPods-IotSurfboardClient.a */; };
+		39FFC7D21D469CA100DAF182 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 39FFC7D11D469CA100DAF182 /* main.m */; };
+		39FFC7D51D469CA100DAF182 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 39FFC7D41D469CA100DAF182 /* AppDelegate.m */; };
+		39FFC7DB1D469CA200DAF182 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39FFC7D91D469CA200DAF182 /* Main.storyboard */; };
+		39FFC7DE1D469CA200DAF182 /* IotSurfboardClient.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 39FFC7DC1D469CA200DAF182 /* IotSurfboardClient.xcdatamodeld */; };
+		39FFC7E01D469CA200DAF182 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 39FFC7DF1D469CA200DAF182 /* Assets.xcassets */; };
+		39FFC7E31D469CA200DAF182 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39FFC7E11D469CA200DAF182 /* LaunchScreen.storyboard */; };
+		39FFC7ED1D469D3600DAF182 /* DevicesExternos.m in Sources */ = {isa = PBXBuildFile; fileRef = 39FFC7EC1D469D3600DAF182 /* DevicesExternos.m */; };
+		39FFC7F41D469DDB00DAF182 /* LightCellCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 39FFC7EF1D469DDB00DAF182 /* LightCellCollectionViewCell.m */; };
+		39FFC7F51D469DDB00DAF182 /* TempCellCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 39FFC7F11D469DDB00DAF182 /* TempCellCollectionViewCell.m */; };
+		39FFC7F61D469DDB00DAF182 /* GenericCellCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 39FFC7F31D469DDB00DAF182 /* GenericCellCollectionViewCell.m */; };
+		39FFC7FA1D469EC000DAF182 /* AtoresTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39FFC7F91D469EC000DAF182 /* AtoresTableViewController.m */; };
+		39FFC7FD1D469ED600DAF182 /* SensoresCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39FFC7FC1D469ED600DAF182 /* SensoresCollectionViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		291AC8E00F05B92DD351FB11 /* libPods-IotSurfboardClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IotSurfboardClient.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		39FFC7CD1D469CA100DAF182 /* IotSurfboardClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IotSurfboardClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		39FFC7D11D469CA100DAF182 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		39FFC7D31D469CA100DAF182 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		39FFC7D41D469CA100DAF182 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		39FFC7DA1D469CA200DAF182 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		39FFC7DD1D469CA200DAF182 /* IotSurfboardClient.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IotSurfboardClient.xcdatamodel; sourceTree = "<group>"; };
+		39FFC7DF1D469CA200DAF182 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		39FFC7E21D469CA200DAF182 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		39FFC7E41D469CA200DAF182 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		39FFC7EB1D469D3600DAF182 /* DevicesExternos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevicesExternos.h; sourceTree = "<group>"; };
+		39FFC7EC1D469D3600DAF182 /* DevicesExternos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevicesExternos.m; sourceTree = "<group>"; };
+		39FFC7EE1D469DDB00DAF182 /* LightCellCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightCellCollectionViewCell.h; sourceTree = "<group>"; };
+		39FFC7EF1D469DDB00DAF182 /* LightCellCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightCellCollectionViewCell.m; sourceTree = "<group>"; };
+		39FFC7F01D469DDB00DAF182 /* TempCellCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TempCellCollectionViewCell.h; sourceTree = "<group>"; };
+		39FFC7F11D469DDB00DAF182 /* TempCellCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TempCellCollectionViewCell.m; sourceTree = "<group>"; };
+		39FFC7F21D469DDB00DAF182 /* GenericCellCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericCellCollectionViewCell.h; sourceTree = "<group>"; };
+		39FFC7F31D469DDB00DAF182 /* GenericCellCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericCellCollectionViewCell.m; sourceTree = "<group>"; };
+		39FFC7F81D469EC000DAF182 /* AtoresTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtoresTableViewController.h; sourceTree = "<group>"; };
+		39FFC7F91D469EC000DAF182 /* AtoresTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtoresTableViewController.m; sourceTree = "<group>"; };
+		39FFC7FB1D469ED600DAF182 /* SensoresCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensoresCollectionViewController.h; sourceTree = "<group>"; };
+		39FFC7FC1D469ED600DAF182 /* SensoresCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensoresCollectionViewController.m; sourceTree = "<group>"; };
+		6FADC7746360C9FF7334D2CB /* Pods-IotSurfboardClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IotSurfboardClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IotSurfboardClient/Pods-IotSurfboardClient.debug.xcconfig"; sourceTree = "<group>"; };
+		BC86D0525F37738656054661 /* Pods-IotSurfboardClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IotSurfboardClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-IotSurfboardClient/Pods-IotSurfboardClient.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		39FFC7CA1D469CA100DAF182 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13E1AE381A3D5FA804975F83 /* libPods-IotSurfboardClient.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		39FFC7C41D469CA100DAF182 = {
+			isa = PBXGroup;
+			children = (
+				39FFC7CF1D469CA100DAF182 /* IotSurfboardClient */,
+				39FFC7CE1D469CA100DAF182 /* Products */,
+				55E9B55906261D2649441355 /* Pods */,
+				76BA8335A7469A877BB2B91D /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		39FFC7CE1D469CA100DAF182 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				39FFC7CD1D469CA100DAF182 /* IotSurfboardClient.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		39FFC7CF1D469CA100DAF182 /* IotSurfboardClient */ = {
+			isa = PBXGroup;
+			children = (
+				39FFC7D91D469CA200DAF182 /* Main.storyboard */,
+				39FFC7FB1D469ED600DAF182 /* SensoresCollectionViewController.h */,
+				39FFC7FC1D469ED600DAF182 /* SensoresCollectionViewController.m */,
+				39FFC7F81D469EC000DAF182 /* AtoresTableViewController.h */,
+				39FFC7F91D469EC000DAF182 /* AtoresTableViewController.m */,
+				39FFC7F71D469DE000DAF182 /* CustomViews */,
+				39FFC7EA1D469D2200DAF182 /* Model */,
+				39FFC7D01D469CA100DAF182 /* Supporting Files */,
+			);
+			path = IotSurfboardClient;
+			sourceTree = "<group>";
+		};
+		39FFC7D01D469CA100DAF182 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				39FFC7DF1D469CA200DAF182 /* Assets.xcassets */,
+				39FFC7E11D469CA200DAF182 /* LaunchScreen.storyboard */,
+				39FFC7D31D469CA100DAF182 /* AppDelegate.h */,
+				39FFC7D41D469CA100DAF182 /* AppDelegate.m */,
+				39FFC7E41D469CA200DAF182 /* Info.plist */,
+				39FFC7DC1D469CA200DAF182 /* IotSurfboardClient.xcdatamodeld */,
+				39FFC7D11D469CA100DAF182 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		39FFC7EA1D469D2200DAF182 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				39FFC7EB1D469D3600DAF182 /* DevicesExternos.h */,
+				39FFC7EC1D469D3600DAF182 /* DevicesExternos.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		39FFC7F71D469DE000DAF182 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				39FFC7EE1D469DDB00DAF182 /* LightCellCollectionViewCell.h */,
+				39FFC7EF1D469DDB00DAF182 /* LightCellCollectionViewCell.m */,
+				39FFC7F01D469DDB00DAF182 /* TempCellCollectionViewCell.h */,
+				39FFC7F11D469DDB00DAF182 /* TempCellCollectionViewCell.m */,
+				39FFC7F21D469DDB00DAF182 /* GenericCellCollectionViewCell.h */,
+				39FFC7F31D469DDB00DAF182 /* GenericCellCollectionViewCell.m */,
+			);
+			name = CustomViews;
+			sourceTree = "<group>";
+		};
+		55E9B55906261D2649441355 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6FADC7746360C9FF7334D2CB /* Pods-IotSurfboardClient.debug.xcconfig */,
+				BC86D0525F37738656054661 /* Pods-IotSurfboardClient.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		76BA8335A7469A877BB2B91D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				291AC8E00F05B92DD351FB11 /* libPods-IotSurfboardClient.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		39FFC7CC1D469CA100DAF182 /* IotSurfboardClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 39FFC7E71D469CA200DAF182 /* Build configuration list for PBXNativeTarget "IotSurfboardClient" */;
+			buildPhases = (
+				4310E92D429D8576B21D1712 /* [CP] Check Pods Manifest.lock */,
+				39FFC7C91D469CA100DAF182 /* Sources */,
+				39FFC7CA1D469CA100DAF182 /* Frameworks */,
+				39FFC7CB1D469CA100DAF182 /* Resources */,
+				D34F3939DC3831FFE0CFD62F /* [CP] Embed Pods Frameworks */,
+				5C142AF87D041197A45EAB6C /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IotSurfboardClient;
+			productName = IotSurfboardClient;
+			productReference = 39FFC7CD1D469CA100DAF182 /* IotSurfboardClient.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		39FFC7C51D469CA100DAF182 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Construtor;
+				TargetAttributes = {
+					39FFC7CC1D469CA100DAF182 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 6CEJZ72DDU;
+					};
+				};
+			};
+			buildConfigurationList = 39FFC7C81D469CA100DAF182 /* Build configuration list for PBXProject "IotSurfboardClient" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 39FFC7C41D469CA100DAF182;
+			productRefGroup = 39FFC7CE1D469CA100DAF182 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				39FFC7CC1D469CA100DAF182 /* IotSurfboardClient */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		39FFC7CB1D469CA100DAF182 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				39FFC7E31D469CA200DAF182 /* LaunchScreen.storyboard in Resources */,
+				39FFC7E01D469CA200DAF182 /* Assets.xcassets in Resources */,
+				39FFC7DB1D469CA200DAF182 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4310E92D429D8576B21D1712 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5C142AF87D041197A45EAB6C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IotSurfboardClient/Pods-IotSurfboardClient-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D34F3939DC3831FFE0CFD62F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IotSurfboardClient/Pods-IotSurfboardClient-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		39FFC7C91D469CA100DAF182 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				39FFC7ED1D469D3600DAF182 /* DevicesExternos.m in Sources */,
+				39FFC7F51D469DDB00DAF182 /* TempCellCollectionViewCell.m in Sources */,
+				39FFC7D51D469CA100DAF182 /* AppDelegate.m in Sources */,
+				39FFC7FD1D469ED600DAF182 /* SensoresCollectionViewController.m in Sources */,
+				39FFC7FA1D469EC000DAF182 /* AtoresTableViewController.m in Sources */,
+				39FFC7DE1D469CA200DAF182 /* IotSurfboardClient.xcdatamodeld in Sources */,
+				39FFC7D21D469CA100DAF182 /* main.m in Sources */,
+				39FFC7F61D469DDB00DAF182 /* GenericCellCollectionViewCell.m in Sources */,
+				39FFC7F41D469DDB00DAF182 /* LightCellCollectionViewCell.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		39FFC7D91D469CA200DAF182 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				39FFC7DA1D469CA200DAF182 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		39FFC7E11D469CA200DAF182 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				39FFC7E21D469CA200DAF182 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		39FFC7E51D469CA200DAF182 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		39FFC7E61D469CA200DAF182 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		39FFC7E81D469CA200DAF182 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FADC7746360C9FF7334D2CB /* Pods-IotSurfboardClient.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = IotSurfboardClient/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.construtor.IotSurfboardClient;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		39FFC7E91D469CA200DAF182 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BC86D0525F37738656054661 /* Pods-IotSurfboardClient.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = IotSurfboardClient/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.construtor.IotSurfboardClient;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		39FFC7C81D469CA100DAF182 /* Build configuration list for PBXProject "IotSurfboardClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				39FFC7E51D469CA200DAF182 /* Debug */,
+				39FFC7E61D469CA200DAF182 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		39FFC7E71D469CA200DAF182 /* Build configuration list for PBXNativeTarget "IotSurfboardClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				39FFC7E81D469CA200DAF182 /* Debug */,
+				39FFC7E91D469CA200DAF182 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		39FFC7DC1D469CA200DAF182 /* IotSurfboardClient.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				39FFC7DD1D469CA200DAF182 /* IotSurfboardClient.xcdatamodel */,
+			);
+			currentVersion = 39FFC7DD1D469CA200DAF182 /* IotSurfboardClient.xcdatamodel */;
+			path = IotSurfboardClient.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 39FFC7C51D469CA100DAF182 /* Project object */;
+}
