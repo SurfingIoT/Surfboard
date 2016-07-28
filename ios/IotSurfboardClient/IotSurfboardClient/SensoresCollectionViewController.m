@@ -180,19 +180,19 @@ static NSString * const reuseIdentifierTemp = @"CellTemp";
             return cell;
         }
             break;
-        case 6:{
-            GenericCellCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-            float valorSensor = [[self.localSensors objectAtIndex:indexPath.row] floatValue];
-            
-            cell.cellValue = [NSString stringWithFormat:@"%.02f", valorSensor];
-            cell.sensorName = @"Distância Sonar";
-            cell.backGroundColorCustom = nil;
-            
-            [cell atualizar];
-            
-            return cell;
-        }
-            break;
+//        case 6:{
+//            GenericCellCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+//            float valorSensor = [[self.localSensors objectAtIndex:indexPath.row] floatValue];
+//            
+//            cell.cellValue = [NSString stringWithFormat:@"%.02f", valorSensor];
+//            cell.sensorName = @"Distância Sonar";
+//            cell.backGroundColorCustom = nil;
+//            
+//            [cell atualizar];
+//            
+//            return cell;
+//        }
+//            break;
         default:{
             GenericCellCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
             return cell;
@@ -247,7 +247,7 @@ static NSString * const reuseIdentifierTemp = @"CellTemp";
                 [self.localSensors addObject:[NSNumber numberWithFloat:self.casa.alcohol]];
                 [self.localSensors addObject:[NSNumber numberWithFloat:self.casa.potenciometer]];
                 [self.localSensors addObject:[NSNumber numberWithFloat:self.casa.distance]];
-                [self.localSensors addObject:[NSNumber numberWithFloat:self.casa.distanceSonar]];
+                //[self.localSensors addObject:[NSNumber numberWithFloat:self.casa.distanceSonar]];
                 
                 // Reload Data
                 [self.collectionView reloadData];
