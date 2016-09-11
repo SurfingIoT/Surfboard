@@ -13,8 +13,8 @@
     <script type="text/javascript" src="js/mqttws31.js"></script>
     <script type="text/javascript">
       // Create a client instance
-      client = new Paho.MQTT.Client("ws://iot.eclipse.org/ws", "myClientId" + new Date().getTime());
-      //"iot.eclipse.org", 80, "aasAaaa");
+      client = new Paho.MQTT.Client("ws://192.168.0.13:9001/ws", "myClientId" + new Date().getTime());
+      //"192.168.0.13", 9001, "aasAaaa");
 
       // set callback handlers
       client.onConnectionLost = onConnectionLost;
@@ -28,7 +28,7 @@
       function onConnect() {
         // Once a connection has been made, make a subscription and send a message.
         console.log("onConnect");
-        client.subscribe("globalcode/things/surfboard177");
+        client.subscribe("/globalcode/things/sensors");
 
       }
 
@@ -71,6 +71,10 @@
         message.destinationName = "globalcode/things";
         client.send(message);
       }
+      function sendMQTT() {
+          var nome = document.formulario.nome.value;
+          alert(nome);
+      }
     </script>
   </head>
   <body>
@@ -82,5 +86,6 @@
       Temperature <input type="text" id="tTemp"/><br/>
       Humidity<input type="text" id="tHumidity"/><br/>
       <img src="image/lamp.jpg" onclick="relay()"/>
+
   </body>
 </html>

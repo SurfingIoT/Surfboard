@@ -1,86 +1,111 @@
 <!DOCTYPE html >
 <html lang="pt-br">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <meta name="author" content="@Globalcode" />
-    <title>
-      IoT Surfboard | by Globalcode
-    </title>
-    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <meta name="author" content="@Globalcode" />
+        <title>
+            IoT Surfboard | by Globalcode
+        </title>
+        <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 
-    <script type="text/javascript" src="js/mqttws31.js"></script>
-    <script type="text/javascript">
-      // Create a client instance
-      client = new Paho.MQTT.Client("ws://iot.eclipse.org/ws", "myClientId" + new Date().getTime());
-      //"iot.eclipse.org", 80, "aasAaaa");
+        <script type="text/javascript" src="js/mqttws31.js"></script>
+        <script type="text/javascript">
+            // Create a client instance
+            client = new Paho.MQTT.Client("ws://iot.eclipse.org/ws", "myClientId" + new Date().getTime());
+            //"iot.eclipse.org", 80, "aasAaaa");
 
-      // set callback handlers
-      client.onConnectionLost = onConnectionLost;
-      client.onMessageArrived = onMessageArrived;
+            // set callback handlers
+            client.onConnectionLost = onConnectionLost;
+            client.onMessageArrived = onMessageArrived;
 
-      // connect the client
-      client.connect({onSuccess: onConnect});
+            // connect the client
+            client.connect({onSuccess: onConnect});
 
 
-      // called when the client connects
-      function onConnect() {
-        // Once a connection has been made, make a subscription and send a message.
-        console.log("onConnect");
-        client.subscribe("globalcode/things/surfboard177");
+            // called when the client connects
+            function onConnect() {
+                // Once a connection has been made, make a subscription and send a message.
+                console.log("onConnect");
+                client.subscribe("/iot-surfboard/sensors/surfboard-ehs6t");
 
-      }
+            }
 
-      // called when the client loses its connection
-      function onConnectionLost(responseObject) {
-        if (responseObject.errorCode !== 0) {
-          console.log("onConnectionLost:" + responseObject.errorMessage);
-          //alert("conexao perdida" + responseObject.errorMessage);
-          client = new Paho.MQTT.Client("ws://iot.eclipse.org/ws", "myClientId" + new Date().getTime());
+            // called when the client loses its connection
+            function onConnectionLost(responseObject) {
+                if (responseObject.errorCode !== 0) {
+                    console.log("onConnectionLost:" + responseObject.errorMessage);
+                    //alert("conexao perdida" + responseObject.errorMessage);
+                    client = new Paho.MQTT.Client("ws://iot.eclipse.org/ws", "myClientId" + new Date().getTime());
 
-        }
-      }
+                }
+            }
 
-      // called when a message arrives
-      function onMessageArrived(message) {
-        console.log("onMessageArrived:" + message.payloadString);
-        var obj = jQuery.parseJSON(message.payloadString);
-        var alcohol = obj.components[0].value;
-        var potentiometer = obj.components[1].value;
-        var light = obj.components[2].value;
-        var temperature = obj.components[5].value;
-        var humidity = obj.components[6].value;
-        $("#tAlcohol").val(alcohol);
-        $("#tPot").val(potentiometer);
-        $("#tLight").val(light);
-        $("#tTemp").val(temperature);
-        $("#tHumidity").val(humidity);
-        if (obj.alcohol > 600) {
-          alert("Someone is drinking alcohol!!!!!!");
-        }
-        if (light < 20) {
-          alert("you hand is near the light sensor!");
-        }
+            // called when a message arrives
+            function onMessageArrived(message) {
+                console.log("onMessageArrived:" + message.payloadString);
+                var obj = jQuery.parseJSON(message.payloadString);
+                var alcohol = obj.components[0].value;
+                var potentiometer = obj.components[1].value;
+                var light = obj.components[2].value;
+                var temperature = obj.components[5].value;
+                var humidity = obj.components[6].value;
+                $("#tAlcohol").val(alcohol);
+                $("#tPot").val(potentiometer);
+                $("#tLight").val(light);
+                $("#tTemp").val(temperature);
+                $("#tHumidity").val(humidity);
+                if (obj.alcohol > 600) {
+                    alert("Someone is drinking alcohol!!!!!!");
+                }
+                if (light < 20) {
+                    alert("you hand is near the light sensor!");
+                }
 
-      }
-      var status = 0;
-      function relay() {
-        message = new Paho.MQTT.Message("*/relay?" + status);
-        status = status == 0 ? 1 : 0;
-        message.destinationName = "globalcode/things";
-        client.send(message);
-      }
-    </script>
-  </head>
-  <body>
-    <header>
-    </header>
-      Alcohol <input type="text" id="tAlcohol"/><br/>
-      Potentiometer <input type="text" id="tPot"/><br/>
-      Light  <input type="text" id="tLight"/><br/>
-      Temperature <input type="text" id="tTemp"/><br/>
-      Humidity<input type="text" id="tHumidity"/><br/>
-      <img src="image/lamp.jpg" onclick="relay()"/>
-  </body>
+            }
+            var status = 0;
+            function relay() {
+                message = new Paho.MQTT.Message("*/relay?" + status);
+                status = status == 0 ? 1 : 0;
+                message.destinationName = "globalcode/things";
+                client.send(message);
+            }
+            function sendMQTT() {
+                var nome = document.formulario.nome.value;
+                var email = document.formulario.email.value;
+                var fone = document.formulario.telefone.value;
+                var twitter = document.formulario.twitter.value;
+                message = new Paho.MQTT.Message(nome + "|" + email + "|" + fone + "|" + twitter);
+                message.destinationName = "/thedevconf/gemalto";
+                client.send(message);
+                
+            }
+
+        </script>
+    </head>
+    <body>
+        <header>
+
+        </header>
+        <section>
+            <p>colocar logo da gemalto</p>
+            <form name="formulario" action="gemalto-ok.hml" onsubmit="sendMQTT()">
+                Nome <input type="text" name="nome">
+                Email <input type="text" name="email">
+                Telefone <input type="text" name="telefone">
+                Twitter <input type="text" name="twitter">
+                <br/>
+                <input type="submit"/>
+            </form>
+        </section>
+        <section>
+            Alcohol <input type="text" id="tAlcohol"/><br/>
+            Potentiometer <input type="text" id="tPot"/><br/>
+            Light  <input type="text" id="tLight"/><br/>
+            Temperature <input type="text" id="tTemp"/><br/>
+            Humidity<input type="text" id="tHumidity"/><br/>
+            <img src="image/lamp.jpg" onclick="relay()"/>
+        </section>
+    </body>
 </html>
