@@ -1,0 +1,14 @@
+C:\Users\mohammed\Desktop\vsenger\apps\hands_on_labs_br_samples\Emotion\bin\Debug\Emotion.exe.config
+C:\Users\mohammed\Desktop\vsenger\apps\hands_on_labs_br_samples\Emotion\bin\Debug\Emotion.exe
+C:\Users\mohammed\Desktop\vsenger\apps\hands_on_labs_br_samples\Emotion\bin\Debug\Emotion.pdb
+C:\Users\mohammed\Desktop\vsenger\apps\hands_on_labs_br_samples\Emotion\bin\Debug\libpxcclr.cs.dll
+C:\Users\mohammed\Desktop\vsenger\apps\hands_on_labs_br_samples\Emotion\obj\Debug\Emotion.csprojResolveAssemblyReference.cache
+C:\Users\mohammed\Desktop\vsenger\apps\hands_on_labs_br_samples\Emotion\obj\Debug\Emotion.exe
+C:\Users\mohammed\Desktop\vsenger\apps\hands_on_labs_br_samples\Emotion\obj\Debug\Emotion.pdb
+C:\Users\mohammed\Desktop\vsenger\apps\Intel RealSense\Samples - Hands-on Lab Felipe C#\Emotion\bin\Debug\Emotion.exe.config
+C:\Users\mohammed\Desktop\vsenger\apps\Intel RealSense\Samples - Hands-on Lab Felipe C#\Emotion\obj\Debug\Emotion.exe
+C:\Users\mohammed\Desktop\vsenger\apps\Intel RealSense\Samples - Hands-on Lab Felipe C#\Emotion\obj\Debug\Emotion.pdb
+C:\Users\mohammed\Desktop\vsenger\apps\Intel RealSense\Samples - Hands-on Lab Felipe C#\Emotion\bin\Debug\Emotion.exe
+C:\Users\mohammed\Desktop\vsenger\apps\Intel RealSense\Samples - Hands-on Lab Felipe C#\Emotion\bin\Debug\Emotion.pdb
+C:\Users\mohammed\Desktop\vsenger\apps\Intel RealSense\Samples - Hands-on Lab Felipe C#\Emotion\bin\Debug\libpxcclr.cs.dll
+C:\Users\mohammed\Desktop\vsenger\apps\Intel RealSense\Samples - Hands-on Lab Felipe C#\Emotion\obj\Debug\Emotion.csprojResolveAssemblyReference.cache

@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="IntelRealSense4Surfboard.exe" version="1.0.0.2" publicKeyToken="f02c9345cb8d08b3" language="neutral" processorArchitecture="msil" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="IntelRealSense4Surfboard" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="IntelRealSense4Surfboard.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IntelRealSense4Surfboard.exe" size="305088">
+      <assemblyIdentity name="IntelRealSense4Surfboard" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>8icHj06SjY+Fx5Vd2kzTNf2krbtPDe0UHIQ5l1akLjo=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="libpxcclr.cs.dll" size="176768">
+      <assemblyIdentity name="libpxcclr.cs" version="5.0.3.7777" publicKeyToken="CA106B2214526F83" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>dQM+Wf5vMu8yOX7jbPAd5ZQgms++GsxJFHAfUNaONcc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="M2Mqtt.dll" size="56320">
+      <assemblyIdentity name="M2Mqtt" version="4.1.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>cN3OwW+Op2c5r1yxaSNCrfBQrYIQ2otJb4gySweBrwQ=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="IntelRealSense4Surfboard.exe.config" size="187">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>xm4bo26HQ0LNVwz1vdPYtzhkpMnp2AI5i+f0b+OahTI=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=patiero\vsenger" issuerKeyHash="0c112bbdc94eb36fd5d13f5c642d1e1124d31a41" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>IarvpyXOPFM7/yqEq+9hn+rK2f6sm/rqmYHA2BVhxiI=</DigestValue></Reference></SignedInfo><SignatureValue>qIVQU0tsQHHlTh/TZZmT97OPzhf53eKkJWbgP+d7WljyoqVm7RiTFakY7UJaN3E+WrHzrfz4GfCT3f5T//+p08A96/39RwmU93ZB9LV3/CBD/g03w2mvN9VKv1EGcnAvETuMtU/OZhuwRUh03Yf1NrvSD8K7fMarhvaL7WAaYN8=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>vJUdLq+HsCGIxQSVrkK5SyGp1COO2piveBIWUDYh22lPU18rmfLEWBioqx6HbHgge3SkeyrhXQCc1hshzz1xGNEbW6q99G6ueaO1iYNJ7TTaSk8XC6HwO2b5UVXw87QhAjsYdmAVK1M2zjRhigW6CGu8GcQpOJXfjI92GjVMRXs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="22c66115d8c08199eafa9bacfed9caea9f61efab842aff3b533cce25a7efaa21" Description="" Url=""><as:assemblyIdentity name="IntelRealSense4Surfboard.exe" version="1.0.0.2" publicKeyToken="f02c9345cb8d08b3" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=patiero\vsenger</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>Zz5b8HBaN2+mP9NlX2SCVzzRBFSCt0J9G3JI77aV6yU=</DigestValue></Reference></SignedInfo><SignatureValue>rrf63SFWbwXiitunyQ1NcjBuWxJ3rQXAaF3PjoccWk9TU80nAN63qdcuoX3xIc5sDKcVtSMSuiiFr5K64+GO8XL1s2cmjA8eXozUOih5/u751NVqv6bWPtc+hiX5sfFVk66vpLvfhvvXswlmLGBCie++vLCSxZurNxbuivpT1c8=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>vJUdLq+HsCGIxQSVrkK5SyGp1COO2piveBIWUDYh22lPU18rmfLEWBioqx6HbHgge3SkeyrhXQCc1hshzz1xGNEbW6q99G6ueaO1iYNJ7TTaSk8XC6HwO2b5UVXw87QhAjsYdmAVK1M2zjRhigW6CGu8GcQpOJXfjI92GjVMRXs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB1TCCAT6gAwIBAgIQG7KfV/kLAK9NLN39QDfcdjANBgkqhkiG9w0BAQsFADApMScwJQYDVQQDHh4AcABhAHQAaQBlAHIAbwBcAHYAcwBlAG4AZwBlAHIwHhcNMTUxMDI4MTUxMTIxWhcNMTYxMDI3MjExMTIxWjApMScwJQYDVQQDHh4AcABhAHQAaQBlAHIAbwBcAHYAcwBlAG4AZwBlAHIwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALyVHS6vh7AhiMUEla5CuUshqdQjjtqYr3gSFlA2IdtpT1NfK5nyxFgYqKseh2x4IHt0pHsq4V0AnNYbIc89cRjRG1uqvfRurnmjtYmDSe002kpPFwuh8Dtm+VFV8PO0IQI7GHZgFStTNs40YYoFughrvBnEKTiV34yPdho1TEV7AgMBAAEwDQYJKoZIhvcNAQELBQADgYEARLbLGHUfX5jqNYM66B5Unf7ypB4/DUlBA6i8QDQFYaCxDzL0OKdm1LYn5wAweYwkTY9UZPxBrDcqHo4FHbt4jEgp66zGGCJEYDXqg+U9cfTM6bVVg7vxaihijssC0GAlMbu47j0l/RPb8XJywYOTUcOI349bCHiIQDA3ExiLuPE=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
