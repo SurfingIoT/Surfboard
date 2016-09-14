@@ -1,8 +1,0 @@
-C:\Users\mohammed\Desktop\vsenger\apps\hands_on_labs_br_samples\HandsSample\bin\Debug\HandsSample.exe.config
-C:\Users\GLOBAL CODE\Documents\IoT Surfboard Dev\surfboard\IntelRealSense\Samples - Hands-on Lab Felipe C#\HandsSample\bin\Debug\HandsSample.exe.config
-C:\Users\GLOBAL CODE\Documents\IoT Surfboard Dev\surfboard\IntelRealSense\Samples - Hands-on Lab Felipe C#\HandsSample\bin\Debug\HandsSample.exe
-C:\Users\GLOBAL CODE\Documents\IoT Surfboard Dev\surfboard\IntelRealSense\Samples - Hands-on Lab Felipe C#\HandsSample\bin\Debug\HandsSample.pdb
-C:\Users\GLOBAL CODE\Documents\IoT Surfboard Dev\surfboard\IntelRealSense\Samples - Hands-on Lab Felipe C#\HandsSample\bin\Debug\libpxcclr.cs.dll
-C:\Users\GLOBAL CODE\Documents\IoT Surfboard Dev\surfboard\IntelRealSense\Samples - Hands-on Lab Felipe C#\HandsSample\obj\Debug\Hands.csprojResolveAssemblyReference.cache
-C:\Users\GLOBAL CODE\Documents\IoT Surfboard Dev\surfboard\IntelRealSense\Samples - Hands-on Lab Felipe C#\HandsSample\obj\Debug\HandsSample.exe
-C:\Users\GLOBAL CODE\Documents\IoT Surfboard Dev\surfboard\IntelRealSense\Samples - Hands-on Lab Felipe C#\HandsSample\obj\Debug\HandsSample.pdb

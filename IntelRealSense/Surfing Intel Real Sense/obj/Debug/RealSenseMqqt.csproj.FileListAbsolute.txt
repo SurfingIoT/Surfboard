@@ -59,6 +59,7 @@ C:\Users\vinic_000\Documents\IoTSurfboard Dev\Intel RealSense\Surfing Intel Real
 C:\Users\vinic_000\Documents\IoTSurfboard Dev\Intel RealSense\Surfing Intel Real Sense\obj\Debug\RealSenseMqqt.csproj.GenerateResource.Cache
 C:\Users\vinic_000\Documents\IoTSurfboard Dev\Intel RealSense\Surfing Intel Real Sense\obj\Debug\IntelRealSense4Surfboard.exe.manifest
 C:\Users\vinic_000\Documents\IoTSurfboard Dev\Intel RealSense\Surfing Intel Real Sense\obj\Debug\IntelRealSense4Surfboard.application
+<<<<<<< HEAD
 C:\Users\GLOBAL CODE\Documents\IoT Surfboard Dev\surfboard\IntelRealSense\Surfing Intel Real Sense\bin\Debug\IntelRealSense4Surfboard.exe.config
 C:\Users\GLOBAL CODE\Documents\IoT Surfboard Dev\surfboard\IntelRealSense\Surfing Intel Real Sense\bin\Debug\IntelRealSense4Surfboard.exe.manifest
 C:\Users\GLOBAL CODE\Documents\IoT Surfboard Dev\surfboard\IntelRealSense\Surfing Intel Real Sense\bin\Debug\IntelRealSense4Surfboard.application
@@ -74,3 +75,8 @@ C:\Users\GLOBAL CODE\Documents\IoT Surfboard Dev\surfboard\IntelRealSense\Surfin
 C:\Users\GLOBAL CODE\Documents\IoT Surfboard Dev\surfboard\IntelRealSense\Surfing Intel Real Sense\obj\Debug\IntelRealSense4Surfboard.exe
 C:\Users\GLOBAL CODE\Documents\IoT Surfboard Dev\surfboard\IntelRealSense\Surfing Intel Real Sense\obj\Debug\IntelRealSense4Surfboard.pdb
 C:\Users\GLOBAL CODE\Documents\IoT Surfboard Dev\surfboard\IntelRealSense\Surfing Intel Real Sense\obj\Debug\RealSenseMqqt.csprojResolveAssemblyReference.cache
+=======
+C:\Users\vinic_000\Documents\IoTSurfboard Dev\Surfboard\IntelRealSense\Surfing Intel Real Sense\bin\Debug\IntelRealSense4Surfboard.exe.config
+C:\Users\vinic_000\Documents\IoTSurfboard Dev\Surfboard\IntelRealSense\Surfing Intel Real Sense\obj\Debug\IntelRealSense4Surfboard.exe
+C:\Users\vinic_000\Documents\IoTSurfboard Dev\Surfboard\IntelRealSense\Surfing Intel Real Sense\obj\Debug\IntelRealSense4Surfboard.pdb
+>>>>>>> 36b69c34bf5ddc01d18513dceef916bc2d69990a
