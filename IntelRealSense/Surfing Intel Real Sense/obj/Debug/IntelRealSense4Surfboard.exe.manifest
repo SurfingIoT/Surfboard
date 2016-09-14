@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IntelRealSense4Surfboard.exe" size="309184">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IntelRealSense4Surfboard.exe" size="308224">
       <assemblyIdentity name="IntelRealSense4Surfboard" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Nf6Quc3NGFqwcKSAKieX8/FzPRZcSOMY5IFewYxm19c=</dsig:DigestValue>
+        <dsig:DigestValue>6pqUQYj8WRVqLaGseorGc4osqx2Twmb5IZw3uKaLt8Q=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

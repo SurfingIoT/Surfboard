@@ -12,3 +12,5 @@ C:\Users\mohammed\Desktop\vsenger\apps\Intel RealSense\Samples - Hands-on Lab Fe
 C:\Users\mohammed\Desktop\vsenger\apps\Intel RealSense\Samples - Hands-on Lab Felipe C#\Emotion\bin\Debug\Emotion.pdb
 C:\Users\mohammed\Desktop\vsenger\apps\Intel RealSense\Samples - Hands-on Lab Felipe C#\Emotion\bin\Debug\libpxcclr.cs.dll
 C:\Users\mohammed\Desktop\vsenger\apps\Intel RealSense\Samples - Hands-on Lab Felipe C#\Emotion\obj\Debug\Emotion.csprojResolveAssemblyReference.cache
+C:\Users\GLOBAL CODE\Documents\IoT Surfboard Dev\surfboard\IntelRealSense\Samples - Hands-on Lab Felipe C#\Emotion\obj\Debug\Emotion.csprojResolveAssemblyReference.cache
+C:\Users\GLOBAL CODE\Documents\IoT Surfboard Dev\surfboard\IntelRealSense\Samples - Hands-on Lab Felipe C#\Emotion\bin\Debug\Emotion.exe.config

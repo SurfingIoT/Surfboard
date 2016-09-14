@@ -147,7 +147,7 @@ namespace RealSenseMqqt
             // Initializing the SenseManager
             if (senseManager.Init() != pxcmStatus.PXCM_STATUS_NO_ERROR)
             {
-                Console.WriteLine("Failed to initialize the SenseManager");
+                Console.WriteLine(senseManager.Init());
                 return;
             }
 
@@ -250,8 +250,8 @@ namespace RealSenseMqqt
                                 String hclosed = (String) iot_form.comboHandsClosed.SelectedItem;
                                 //if (target.Equals("")) target = "*";
 
-                                SendMqttMessage(target + "/" + hclosed);
-                                //SendMqttMessage(hclosed);
+                                //SendMqttMessage(target + "/" + hclosed);
+                                SendMqttMessage(hclosed);
                                 currentGesture = GESTURE_FIST;
                             }
                         }
@@ -262,8 +262,8 @@ namespace RealSenseMqqt
                                 String target = (String)iot_form.comboTarget.SelectedItem;
                                 String hopen = (String)iot_form.comboGive5Action.SelectedItem;
                                 //if (target.Equals("")) target = "*";
-                                //SendMqttMessage(hopen);
-                                SendMqttMessage(target + "/" + hopen);
+                                SendMqttMessage(hopen);
+                                //SendMqttMessage(target + "/" + hopen);
                                 //System.Diagnostics.Process.Start("http://www.globalcode.com.br");
                                 //SendMqttMessage("surfboard2/relay?1");
                                 currentGesture = GESTURE_SPREADFINGERS;
@@ -437,7 +437,8 @@ namespace RealSenseMqqt
             {
                 Console.WriteLine(string.Format("Executou comando '{0}' Timeframe: {1}", message, now));
                 //client.Publish("globalcode/things/command", Encoding.UTF8.GetBytes(message), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-                client.Publish("globalcode/things", Encoding.UTF8.GetBytes(message), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+                String queue = iot_form.textQUEUE.Text;
+                client.Publish(queue, Encoding.UTF8.GetBytes(message), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
                 LastTimeMessage = now;
             }
         }
