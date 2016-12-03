@@ -13,7 +13,7 @@
     <script type="text/javascript" src="js/mqttws31.js"></script>
     <script type="text/javascript">
       // Create a client instance
-      client = new Paho.MQTT.Client("ws://192.168.0.13:9001/ws", "myClientId" + new Date().getTime());
+      client = new Paho.MQTT.Client("ws://192.168.1.100:9001/ws", "myClientId" + new Date().getTime());
       //"192.168.0.13", 9001, "aasAaaa");
 
       // set callback handlers
@@ -28,7 +28,7 @@
       function onConnect() {
         // Once a connection has been made, make a subscription and send a message.
         console.log("onConnect");
-        client.subscribe("/globalcode/things/sensors");
+        client.subscribe("/itau/daas/persistence");
 
       }
 

@@ -250,7 +250,7 @@ namespace RealSenseMqqt
                                 String hclosed = (String) iot_form.comboHandsClosed.SelectedItem;
                                 //if (target.Equals("")) target = "*";
 
-                                //SendMqttMessage(target + "/" + hclosed);
+                                SendMqttMessage(target + "/" + hclosed);
                                 SendMqttMessage(hclosed);
                                 currentGesture = GESTURE_FIST;
                             }
@@ -263,7 +263,7 @@ namespace RealSenseMqqt
                                 String hopen = (String)iot_form.comboGive5Action.SelectedItem;
                                 //if (target.Equals("")) target = "*";
                                 SendMqttMessage(hopen);
-                                //SendMqttMessage(target + "/" + hopen);
+                                SendMqttMessage(target + "/" + hopen);
                                 //System.Diagnostics.Process.Start("http://www.globalcode.com.br");
                                 //SendMqttMessage("surfboard2/relay?1");
                                 currentGesture = GESTURE_SPREADFINGERS;
@@ -273,7 +273,7 @@ namespace RealSenseMqqt
                         {
                             if (currentGesture.CompareTo(GESTURE_CLICK) != 0)
                             {
-                                //SendMqttMessage("green?255");
+                                SendMqttMessage("green?255");
                                 currentGesture = GESTURE_CLICK;
                             }
                         }
@@ -282,7 +282,7 @@ namespace RealSenseMqqt
                             if (currentGesture.CompareTo(GESTURE_VSIGN) != 0)
                             {
                                 //System.Diagnostics.Process.Start("https://www.youtube.com/watch?v=MVm5hcQYJ-U");
-                                //SendMqttMessage("green?0");
+                                SendMqttMessage("green?0");
                                 keepLooping = false;
                                 currentGesture = GESTURE_VSIGN;
                             }
@@ -317,7 +317,7 @@ namespace RealSenseMqqt
                                 String target = (String)iot_form.comboTarget.SelectedItem;
                                 String hopen = (String)iot_form.comboSmile.SelectedItem;
                                 SendMqttMessage(target + "/" + hopen);
-                                //SendMqttMessage(hopen);
+                                SendMqttMessage(hopen);
                                 currentEmotion = 1;
                                 //System.Diagnostics.Process.Start("http://www.globalcode.com.br");
                                 //SendMqttMessage("surfboard2/relay?1");
@@ -330,7 +330,7 @@ namespace RealSenseMqqt
                                 String target = (String)iot_form.comboTarget.SelectedItem;
                                 String hopen = (String)iot_form.comboSurprise.SelectedItem;
                                 SendMqttMessage(target + "/" + hopen);
-                                //SendMqttMessage(hopen);
+                                SendMqttMessage(hopen);
                                 currentEmotion = 2;
                                 //System.Diagnostics.Process.Start("http://www.globalcode.com.br");
                                 //SendMqttMessage("surfboard2/relay?1");
