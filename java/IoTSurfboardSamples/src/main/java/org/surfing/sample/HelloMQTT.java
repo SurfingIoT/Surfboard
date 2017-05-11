@@ -21,11 +21,7 @@ public class HelloMQTT {
             + "value\" : \"25.00\"},{\"name\" : \"humidity\",\"value\" : \"41.00\"}]}";
     static String msg1 = "{\"name\" : \"surfboard195\", \"firmware\" : \"3\", \"serial\" : \"416670035\", \"key\" : \"195555\", \"components\" : [{\"name\" : \"alcohol\",\"value\" : \"0\"},{\"name\" : \"pot\",\"value\" : \"59\"},{\"name\" : \"light\",\"value\" : \"30\"}, {\"name\" : \"distance\", \"value\" : \"0\"}, {\"name\" : \"clock\", \"value\" : \"7/28/2016 11:28:59\"}, {\"name\" : \"temp\", \"value\" : \"24.00\"},{\"name\" : \"humidity\",\"value\" : \"49.00\"}]}";
     public static void main(String[] args) throws Exception {
-        while (true) {
-            MQTTBroker.getInstance().publish("itau/daas/tcp/monitor/voyo", msg1);
-            Thread.sleep(10000);
-        }
-        /*try {
+        try {
             MQTTBroker.getInstance().publish("/iot-surfboard/control/surfboard-ehs6t", "relay?1");
             MQTTBroker.getInstance().subscribe("/iot-surfboard/sensors/surfboard-ehs6t");
             MQTTBroker.getInstance().setListener(new MQTTListener() {
@@ -49,6 +45,6 @@ public class HelloMQTT {
             });
         } catch (MqttException ex) {
             Logger.getLogger(HelloMQTT.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
     }
 }

@@ -34,9 +34,26 @@ public class Surfboard {
 
     }
 
+    public synchronized void run(String command){
+        if (outStream == null) {
+            return;
+        }
+        System.out.println("Sending command " + command + " to Surfboard");
+
+        try {
+         outStream.write(command.getBytes());
+         Thread.sleep(50);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
     public synchronized String execute(String command) throws IOException {
         String strResponse = null;
-
+        if (outStream == null) {
+            return "";
+        }
         System.out.println("Sending command " + command + " to Surfboard");
         outStream.write(command.getBytes());
         byte response[] = new byte[2048];

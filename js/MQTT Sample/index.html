@@ -13,8 +13,8 @@
     <script type="text/javascript" src="js/mqttws31.js"></script>
     <script type="text/javascript">
       // Create a client instance
-      client = new Paho.MQTT.Client("ws://192.168.1.100:9001/ws", "myClientId" + new Date().getTime());
-      //"192.168.0.13", 9001, "aasAaaa");
+      client = new Paho.MQTT.Client("ws://192.168.1.108:9001/ws", "myClientId" + new Date().getTime());
+      //"192.168.1.111", 9001, "aasAaaa");
 
       // set callback handlers
       client.onConnectionLost = onConnectionLost;
@@ -28,7 +28,7 @@
       function onConnect() {
         // Once a connection has been made, make a subscription and send a message.
         console.log("onConnect");
-        client.subscribe("/itau/daas/persistence");
+        client.subscribe("globalcode/things/surfboard187");
 
       }
 
@@ -49,8 +49,8 @@
         var alcohol = obj.components[0].value;
         var potentiometer = obj.components[1].value;
         var light = obj.components[2].value;
-        var temperature = obj.components[5].value;
-        var humidity = obj.components[6].value;
+        var temperature = obj.components[4].value;
+        var humidity = obj.components[5].value;
         $("#tAlcohol").val(alcohol);
         $("#tPot").val(potentiometer);
         $("#tLight").val(light);

@@ -13,10 +13,52 @@ import org.eclipse.paho.client.mqttv3.MqttSecurityException;
 
 import com.cinterion.io.ADC;
 import com.cinterion.io.ADCListener;
+import com.cinterion.io.InPort;
+import com.cinterion.io.InPortListener;
 import com.cinterion.misc.Watchdog2;
 import com.cwm.util.GPRSConnectOptions;
+import java.util.Vector;
 
 public class ThingsMQTT extends MIDlet {
+
+    InPort inPort23;
+    int gpio23_state;
+    InPort inPort22;
+    int gpio22_state;
+
+    public void setupPin23() throws IOException {
+        Vector inPins = new Vector();
+        inPins.addElement("GPIO23");
+        //inPins.addElement("GPIO22");
+        inPort23 = new InPort(inPins);
+        //int inPortValue = inPort.getValue();
+        inPort23.addListener(new InPortListener() {
+            public void portValueChanged(int val) {
+                if (val != gpio23_state) {
+                    System.out.println("Pin 23 Change " + val);
+                    gpio23_state = val;
+                    publishValue(queueSensors, qos, "{\"pin23\" : \"" + gpio23_state + "\"}");
+                }
+            }
+        });
+    }
+
+    public void setupPin22() throws IOException {
+        Vector inPins = new Vector();
+        inPins.addElement("GPIO22");
+        //inPins.addElement("GPIO22");
+        inPort22 = new InPort(inPins);
+        //int inPortValue = inPort.getValue();
+        inPort22.addListener(new InPortListener() {
+            public void portValueChanged(int val) {
+                if (val != gpio22_state) {
+                    System.out.println("Pin 22 Change " + val);
+                    gpio22_state = val;
+                    publishValue(queueSensors, qos, "{\"pin22\" : \"" + gpio22_state + "\"}");
+                }
+            }
+        });
+    }
 
     public static String DEF_BROCKER_URL = "tcp://iot.eclipse.org";
     public static int DEF_BROCKER_PORT = 1883;
@@ -70,11 +112,20 @@ public class ThingsMQTT extends MIDlet {
 
     protected void startApp() throws MIDletStateChangeException {
         System.out.println("ThingsMQTT:startApp()+");
-// ########## GSM handling ##########
         gsmH = new GSMHandler(this);
-
         // reaad settings from JAD file
         readJADSettings();
+        System.out.println("Starting Serial connection with Surfboard...");
+        surfboard = new Surfboard();
+        try {
+            surfboard.open();
+        } catch (IOException ex) {
+            System.out.println("!Exception at connecting with Surfboard!");
+            ex.printStackTrace();
+        }
+        surfboard.run("lcd1?IoT Surfboard 3g");
+        surfboard.run("lcd2?Starting");
+        // ########## GSM handling ##########
 
         // generate client/device ID
         generateClientID();
@@ -89,9 +140,14 @@ public class ThingsMQTT extends MIDlet {
 
         // waiting for network registration for 2 minutes
         System.out.print("Waiting for network registration...");
+        surfboard.run("lcd2?Network regist");
+
         if (gsmH.waitForNetRegistration(1000 * 120)) {
+            surfboard.run("lcd2?Registered!");
             System.out.println("Registered!");
         } else {
+            surfboard.run("lcd2?No network");
+
             System.out.println("No network registration");
             destroyApp(true);
             return;
@@ -110,7 +166,10 @@ public class ThingsMQTT extends MIDlet {
 
         // waiting for GPRS attach for 2 minutes
         System.out.println("Waiting for GPRS attach...");
+        surfboard.run("lcd2?Waiting Attach");
+
         if (gsmH.waitForGPRSAttach(1000 * 120)) {
+            surfboard.run("lcd2?Attached!");
             System.out.println("Attached!");
 
         } else {
@@ -120,12 +179,16 @@ public class ThingsMQTT extends MIDlet {
         }
 
         // ########## MQTT handling ##############
+        surfboard.run("lcd2?MQTT Connection");
+
         mqttH = new MQTTHandler(clientID, brokerUrl + ":" + brokerPort, this);
 
         // connect to MQTT Brocker
         System.out.println("Connecting to MQTT brocker...");
         try {
             mqttH.connectToBrocker();
+            surfboard.run("lcd2?MQTT Connected!");
+
         } catch (MqttSecurityException e1) {
             e1.printStackTrace();
         } catch (MqttException e1) {
@@ -137,14 +200,6 @@ public class ThingsMQTT extends MIDlet {
 
         } catch (MqttException e) {
             System.out.println("!Exception at connecting!");
-        }
-        System.out.println("Starting Serial connection with Surfboard...");
-        surfboard = new Surfboard();
-        try {
-            surfboard.open();
-        } catch (IOException ex) {
-            System.out.println("!Exception at connecting with Surfboard!");
-            ex.printStackTrace();
         }
 
         // ############# demo functions ###################
@@ -178,13 +233,20 @@ public class ThingsMQTT extends MIDlet {
         initFinish = true;
 
         publishValue(queueRendezvous, qos, "EHS6 device Connected to Internet " + clientID);
-
+        try {
+            setupPin23();
+            setupPin22();
+        } catch (IOException ex) {
+            System.out.println("ThingsMQTT:error setup pins" + ex.getMessage());
+            ex.printStackTrace();
+        }
         System.out.println("ThingsMQTT:startApp()-");
     }
 
     public void gsmEvent(String event) {
         publishValue(null, qos, "event=" + event);
     }
+
     public void executeAction(String message) {
         if (message.toUpperCase().startsWith("SMS://")) {
             String command = message.substring(6, message.length());
@@ -209,13 +271,16 @@ public class ThingsMQTT extends MIDlet {
                 ex.printStackTrace();
             }
         }
-        
+
     }
+
     public void mqttMessageArrived(String topic, String message) {
         System.out.println("ThingsMQTT:mqttMessageArrived()+");
         System.out.println("Msg arrived!");
         System.out.println("Topic: " + topic);
         System.out.println("Message: " + message);
+        surfboard.run("lcd1?IoT Surfboard 3g");
+        surfboard.run("lcd2?MQTT Msg Arrived");
         executeAction(message);
         System.out.println("ThingsMQTT:mqttMessageArrived()-");
     }
@@ -226,6 +291,13 @@ public class ThingsMQTT extends MIDlet {
     }
 
     public void mqttConnectionLost(Throwable cause) {
+        try {
+            surfboard.execute("red?100");
+            surfboard.run("lcd2?No connection...");
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         System.out.println("ThingsMQTT:mqttConnectionLost()+");
         System.out.println("!!!!! Connection to MQTT broker lost !!!!!");
         if (cause != null) {
@@ -233,15 +305,19 @@ public class ThingsMQTT extends MIDlet {
         } else {
             System.out.println("cause != null");
         }
+        surfboard.run("lcd2?MQTT Reconecting");
 
         System.out.println("Re-Connecting to MQTT brocker...");
         try {
             mqttH.connectToBrocker();
+            surfboard.execute("red?0");
+            surfboard.execute("green?20");
+
             // subscribe for receiving the data
             subscribeTopics();
-        } catch (MqttSecurityException e1) {
-            e1.printStackTrace();
-        } catch (MqttException e1) {
+            surfboard.execute("green?60");
+
+        } catch (Exception e1) {
             e1.printStackTrace();
         }
         System.out.println("ThingsMQTT:mqttConnectionLost()-");
@@ -256,6 +332,13 @@ public class ThingsMQTT extends MIDlet {
 
     public void publishValue(String topic, int qos, String msg) {
         System.out.println("ThingsMQTT:publishValue()+");
+        surfboard.run("lcd1?IoT Surfboard 3g");
+        surfboard.run("lcd2?Publishing MQTT ");
+        try {
+            surfboard.execute("green?0");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
         if (!initFinish) {
             return;
@@ -270,11 +353,19 @@ public class ThingsMQTT extends MIDlet {
             System.out.println("topic: " + topic);
             System.out.println("qos:" + qos);
             System.out.println("message: " + msg);
+            surfboard.run("lcd1?IoT Surfboard 3g");
+            surfboard.run("lcd2?MQTT Published  ");
         } catch (MqttException ex) {
             if (ex != null) {
                 System.out.println("Can't publish the message!");
             }
         }
+        try {
+            surfboard.execute("green?50");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
         System.out.println("ThingsMQTT:publishValue()-");
     }
 
@@ -382,7 +473,7 @@ public class ThingsMQTT extends MIDlet {
                 == null) {
             queueBroadcast = "/iot-surfboard/everything";
         }
-        queueRendezvous = getAppProperty("Queue-Rendevouz");
+        queueRendezvous = getAppProperty("Queue-Rendezvous");
         if (queueRendezvous
                 == null) {
             queueRendezvous = "/iot-surfboard";
@@ -532,11 +623,23 @@ public class ThingsMQTT extends MIDlet {
         public void run() {
             try {
                 String sensors = surfboard.execute("sensors");
-                publishValue(queueSensors, qos, sensors);
+                String sensorsNew = sensors.substring(0, sensors.trim().length() - 2);
+                updateEHS6PinState();
+                sensorsNew = sensorsNew + ",{\"pin22\" : " + gpio22_state + "},{\"pin23\" : " + gpio23_state + "}]}";
+                publishValue(queueSensors, qos, sensorsNew);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
 
         }
+    }
+    public void updateEHS6PinState() {
+        try {
+            if(inPort22!=null) gpio22_state = inPort22.getValue();
+            if(inPort23!=null) gpio23_state = inPort23.getValue();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        
     }
 }

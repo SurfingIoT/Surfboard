@@ -18,7 +18,7 @@ public class MQTTBroker  {
     private MQTTBroker() {}
     MqttClient client;
 
-    public String MQTT_SERVER = "tcp://192.168.1.100:1883";
+    public String MQTT_SERVER = "tcp://192.168.1.108:1883";
     public void setListener(MQTTListener l) {
         client.setCallback(l);
     }

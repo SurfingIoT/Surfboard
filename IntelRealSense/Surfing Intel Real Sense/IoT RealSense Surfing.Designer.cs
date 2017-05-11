@@ -68,7 +68,7 @@
             this.comboGive5Action.Name = "comboGive5Action";
             this.comboGive5Action.Size = new System.Drawing.Size(153, 37);
             this.comboGive5Action.TabIndex = 0;
-            this.comboGive5Action.Text = "relay?1";
+            this.comboGive5Action.Text = "speaker?1";
             this.comboGive5Action.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label1
@@ -151,7 +151,7 @@
             this.comboHandsClosed.Name = "comboHandsClosed";
             this.comboHandsClosed.Size = new System.Drawing.Size(153, 37);
             this.comboHandsClosed.TabIndex = 6;
-            this.comboHandsClosed.Text = "relay?0";
+            this.comboHandsClosed.Text = "speaker?0";
             // 
             // buttonStart
             // 
@@ -172,19 +172,19 @@
             this.label2.Location = new System.Drawing.Point(649, 305);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(96, 25);
+            this.label2.Size = new System.Drawing.Size(72, 25);
             this.label2.TabIndex = 9;
-            this.label2.Text = "Device(s)";
+            this.label2.Text = "Device";
             // 
             // textQUEUE
             // 
             this.textQUEUE.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textQUEUE.Location = new System.Drawing.Point(337, 338);
-            this.textQUEUE.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textQUEUE.Margin = new System.Windows.Forms.Padding(4);
             this.textQUEUE.Name = "textQUEUE";
             this.textQUEUE.Size = new System.Drawing.Size(263, 30);
             this.textQUEUE.TabIndex = 12;
-            this.textQUEUE.Text = "globalcode/things";
+            this.textQUEUE.Text = "/iot-surfboard/control";
             // 
             // label5
             // 
@@ -213,7 +213,7 @@
             // 
             this.textMQTTBroker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textMQTTBroker.Location = new System.Drawing.Point(33, 338);
-            this.textMQTTBroker.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textMQTTBroker.Margin = new System.Windows.Forms.Padding(4);
             this.textMQTTBroker.Name = "textMQTTBroker";
             this.textMQTTBroker.Size = new System.Drawing.Size(263, 30);
             this.textMQTTBroker.TabIndex = 14;
@@ -250,7 +250,7 @@
             this.comboSmile.Name = "comboSmile";
             this.comboSmile.Size = new System.Drawing.Size(153, 37);
             this.comboSmile.TabIndex = 16;
-            this.comboSmile.Text = "speaker?1";
+            this.comboSmile.Text = "relay?1";
             // 
             // label7
             // 
@@ -282,7 +282,7 @@
             this.comboSurprise.Name = "comboSurprise";
             this.comboSurprise.Size = new System.Drawing.Size(153, 37);
             this.comboSurprise.TabIndex = 18;
-            this.comboSurprise.Text = "speaker?0";
+            this.comboSurprise.Text = "relay?0";
             // 
             // IoT_RealSense_Surfing
             // 

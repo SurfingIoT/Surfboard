@@ -63,7 +63,7 @@ public class MQTTHandler implements MqttCallback {
 
 		// Set this wrapper as the callback handler
 		client.setCallback(this);
-
+                
 		// Connect to the server
 		try {
 			client.connect(mqttOptions);

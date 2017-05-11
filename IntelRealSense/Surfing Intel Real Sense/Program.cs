@@ -250,7 +250,8 @@ namespace RealSenseMqqt
                                 String hclosed = (String) iot_form.comboHandsClosed.SelectedItem;
                                 //if (target.Equals("")) target = "*";
 
-                                SendMqttMessage(target + "/" + hclosed);
+                                //SendMqttMessage(target + "/" + hclosed);
+
                                 SendMqttMessage(hclosed);
                                 currentGesture = GESTURE_FIST;
                             }
@@ -263,7 +264,7 @@ namespace RealSenseMqqt
                                 String hopen = (String)iot_form.comboGive5Action.SelectedItem;
                                 //if (target.Equals("")) target = "*";
                                 SendMqttMessage(hopen);
-                                SendMqttMessage(target + "/" + hopen);
+                                //SendMqttMessage(target + "/" + hopen);
                                 //System.Diagnostics.Process.Start("http://www.globalcode.com.br");
                                 //SendMqttMessage("surfboard2/relay?1");
                                 currentGesture = GESTURE_SPREADFINGERS;
@@ -316,7 +317,7 @@ namespace RealSenseMqqt
                             {
                                 String target = (String)iot_form.comboTarget.SelectedItem;
                                 String hopen = (String)iot_form.comboSmile.SelectedItem;
-                                SendMqttMessage(target + "/" + hopen);
+                                //SendMqttMessage(target + "/" + hopen);
                                 SendMqttMessage(hopen);
                                 currentEmotion = 1;
                                 //System.Diagnostics.Process.Start("http://www.globalcode.com.br");
@@ -329,7 +330,7 @@ namespace RealSenseMqqt
                             {
                                 String target = (String)iot_form.comboTarget.SelectedItem;
                                 String hopen = (String)iot_form.comboSurprise.SelectedItem;
-                                SendMqttMessage(target + "/" + hopen);
+                                //SendMqttMessage(target + "/" + hopen);
                                 SendMqttMessage(hopen);
                                 currentEmotion = 2;
                                 //System.Diagnostics.Process.Start("http://www.globalcode.com.br");
@@ -376,7 +377,7 @@ namespace RealSenseMqqt
                     int handOpenness = hand.QueryOpenness();
                     //Console.WriteLine("Hand openness: {0}", handOpenness);
 
-                    //SendMqttMessage(String.Format("surfboard2/red?{0}", (255 *handOpenness)/100));
+                    SendMqttMessage(String.Format("red?{0}", (255 *handOpenness)/100));
 
                     // Querying Hand 2D Position
                     PXCMPointF32 massCenterImage = hand.QueryMassCenterImage();
@@ -389,7 +390,7 @@ namespace RealSenseMqqt
 
                     double angleInDegrees = (180 * rotationEuler.y / Math.PI) + 180;
                     Console.WriteLine("Angle in degrees: {0}", angleInDegrees);
-                    SendMqttMessage(String.Format("servo?{0}", (int)angleInDegrees));
+                    SendMqttMessage(String.Format("red?{0}", (int)angleInDegrees));
             
                     
                     // Console.WriteLine("Rotation x:{0},y:{1},z:{2}", rotationEuler.x, rotationEuler.y, rotationEuler.z);
@@ -438,7 +439,7 @@ namespace RealSenseMqqt
                 Console.WriteLine(string.Format("Executou comando '{0}' Timeframe: {1}", message, now));
                 //client.Publish("globalcode/things/command", Encoding.UTF8.GetBytes(message), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
                 String queue = iot_form.textQUEUE.Text;
-                client.Publish(queue, Encoding.UTF8.GetBytes(message), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+                client.Publish(queue, Encoding.UTF8.GetBytes(message), MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE, false);
                 LastTimeMessage = now;
             }
         }
