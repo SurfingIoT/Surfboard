@@ -89,7 +89,7 @@ void createWebServer(int webtype){
     queue_rendezvous = server.arg("queue_rendezvous");
     String t_interval = server.arg("sensor_interval");
     sensor_interval = atoi(t_interval.c_str());
-
+    mqtt_server = server.arg("mqtt_server");
     opMode = server.arg("opMode");
     valo_server = server.arg("valo_server");
     valo_server.toCharArray(VALO_HOST, valo_server.length());
