@@ -69,7 +69,7 @@ void setup() {
   Serial.flush();
   deviceName = Serial.readString();
   if (deviceName.length() == 0 || deviceName.startsWith(" ")) {
-    deviceName = "surfboard-hue";
+    deviceName = "surfboard-unnamed";
   }
   else {
     //taking out the line termination to avoid problem with MQTT QUEUE names

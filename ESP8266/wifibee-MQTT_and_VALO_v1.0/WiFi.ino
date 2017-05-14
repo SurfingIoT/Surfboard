@@ -19,9 +19,26 @@ void setup_wifi() {
     server.handleClient();  
     //*****************************************
     
-    delay(500);
+    delay(100);
+    server.handleClient();  
+    delay(100);
+    server.handleClient();  
+    delay(100);
+    server.handleClient();  
+    delay(100);
+    server.handleClient();  
+    delay(100);
+    server.handleClient();  
     Serial.print("blue?255");
-    delay(500);
+    delay(100);
+    server.handleClient();  
+    delay(100);
+    server.handleClient();  
+    delay(100);
+    server.handleClient();  
+    delay(100);
+    server.handleClient();  
+    delay(100);
   }
 
   
