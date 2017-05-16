@@ -3,13 +3,10 @@
 #include <EEPROM.h>
 #include <ESP8266WebServer.h>
 #include <TimeLib.h>
-
-// Internal dependencies
-#include <SensorSample.h>
-#include <Contributor.h>
-using namespace io::valo::iot;
+#include <ESP8266HTTPClient.h>
 
 char CONTRIBUTOR_ID[] = "SurfBoardXX";
+char VALO_HOST[] = "192.168.0.110";
 int  VALO_PORT = 8888;
 char LATITUDE[] = "36.7585406465564";
 char LONGITUDE[] = "-4.3971722687";
@@ -25,8 +22,6 @@ String password = "iotiotiot";
 String mqtt_server = "iot.eclipse.org";
 String valo_server = "";
 String opMode = "MQTT";
-String latitude = "";
-String longitude = "";
 
 String queue_listener;
 String queue_sensors;
@@ -36,26 +31,18 @@ String deviceName = "surfboard";
 
 long sensor_interval = 15000;
 long connection_timeout = 0;
-WiFiClient espClient;
-PubSubClient client(espClient);
+WiFiClient espClient1;
+
+PubSubClient client(espClient1);
+
+
+
 ESP8266WebServer server(80);
-
-// Contributor
-//Contributor<Print> con(client, "3452352345", "localhost", 8888);
-//Contributor<Print> con(Serial, CONTRIBUTOR_ID, VALO_HOST, VALO_PORT);
-//Contributor<Print> con(espClient, CONTRIBUTOR_ID, VALO_HOST, VALO_PORT);
-Contributor<Print> con(espClient, "TESTE", "192.168.0.110", 8888);
-
-// Sensors
-SensorSample temp("/streams/demo/iot_board/temperature", "temperature", "celsius");
-SensorSample humidity("/streams/demo/iot_board/humidity", "humidity", "percentage");
-SensorSample distance("/streams/demo/iot_board/distance", "distance", "meter");
-SensorSample luminance("/streams/demo/iot_board/luminance", "luminance", "lumex");
-SensorSample alcohol("/streams/demo/iot_board/alcohol", "alcohol", "vol");
 
 long lastMsg = 0;
 char buffer[1000];
 int wifi_state = 0;
+
 
 void setup() {
   EEPROM.begin(512);
@@ -71,7 +58,7 @@ void setup() {
   Serial.flush();
   deviceName = Serial.readString();
   if (deviceName.length() == 0 || deviceName.startsWith(" ")) {
-    deviceName = "surfboard-hue";
+    deviceName = "surfboard-unnamed";
   }
   else {
     //taking out the line termination to avoid problem with MQTT QUEUE names
@@ -102,8 +89,6 @@ void setup() {
   createWebServer(1);
   server.begin();
   //*********************************************************
-  //Serial.println("Starting WIFI setup");
-  //emptySerial();
 
   setup_wifi();
   while (WiFi.status() != WL_CONNECTED) {
@@ -111,18 +96,7 @@ void setup() {
     wifi_state = 0;
     connection_timeout = millis();
     setup_wifi();
-  } 
-  //Serial.println("WIFI setup finished");
-  //emptySerial();
-
-  // Set the sensor static data
-  temp.setPosition(LATITUDE, LONGITUDE);
-  humidity.setPosition(LATITUDE, LONGITUDE);
-  distance.setPosition(LATITUDE, LONGITUDE);
-  luminance.setPosition(LATITUDE, LONGITUDE);
-  alcohol.setPosition(LATITUDE, LONGITUDE);
-  //Serial.println("Valo setup finished");
-  //emptySerial();
+  }
 
 }
 
@@ -144,9 +118,12 @@ void loop() {
       //Serial.println("WIFI connected, trying to connect to MQTT");
       //emptySerial();
       wifi_state = 1;
+      Serial.print(">Connecting to MQTT");
+      Serial.print(mqtt_server);
+      Serial.println(">.");
       reconnect();  //try to reconnect MQTT
     }
-    if (!client.connected() && wifi_state == 1) {  //if MQTT disconected and WiFi state disconected
+    if (!client.connected() && wifi_state == 0) {  //if MQTT disconected and WiFi state disconected
       //Serial.println("WIFI not connected, trying to connect to WIFI and then MQTT");
       //emptySerial();
       connection_timeout = millis();
@@ -185,78 +162,117 @@ void loop() {
       commandComplete = false;
     }
   }
-
-
   if (opMode == "VALO") { //publishes data to Valo
-    //    client.loop();
-    if (WiFi.status() != WL_CONNECTED) { //if WiFi state disconected
+
+    if (WiFi.status() != WL_CONNECTED) { //if MQTT disconected and WiFi state conected
       wifi_state = 0;
       connection_timeout = millis();
       setup_wifi(); //reconect WiFi
+
     }
+
     long now = millis();
     if (sensor_interval > 0 && now - lastMsg > sensor_interval) {
       lastMsg = now;
+      //conectClient();
+      Serial.print("clock");
+      Serial.flush();
+      String clock11 = Serial.readString();
+      clock11.replace("\n", "");
+      clock11.replace("/", "-");
+      clock11 = "";
+      //clock11 = "ab";
 
-
+      int httpCode;
       //Read Sensors and send to Valo
       //Temperature
+      delay(100);
       Serial.print("temp");
       Serial.flush();
-      String tempRead = Serial.readString();
-      toChar(tempRead);
-      tempRead.toCharArray(buffer, sizeof(tempRead));
-      temp.setValue(buffer);
-      connectClient();
-      con.feed(temp);
-      disconnectClient();
+      String sensor = Serial.readString();
+      sensor.replace("\n", "");
+      httpCode = httpPOST("temperature", sensor, "celsius", clock11);
+      Serial.print(">HTTP Code: ");
+      Serial.println(httpCode);
 
-      //Humidity
-      Serial.print("humidity");
-      Serial.flush();
-      String humidityRead = Serial.readString();
-      toChar(humidityRead);
-      humidityRead.toCharArray(buffer, sizeof(humidityRead));
-      humidity.setValue(buffer);
-      connectClient();
-      con.feed(humidity);
-      disconnectClient();
-
-
-      //Distance
-      Serial.print("distance");
-      Serial.flush();
-      String distanceRead = Serial.readString();
-      toChar(distanceRead);
-      distanceRead.toCharArray(buffer, sizeof(distanceRead));
-      distance.setValue(buffer);
-      connectClient();
-      con.feed(distance);
-      disconnectClient();
-
-      //Luminance
-      Serial.print("light");
-      Serial.flush();
-      String luminanceRead = Serial.readString();
-      toChar(luminanceRead);
-      luminanceRead.toCharArray(buffer, sizeof(luminanceRead));
-      luminance.setValue(buffer);
-      connectClient();
-      con.feed(luminance);
-      disconnectClient();
-
-      //Alcohol
+      delay(100);
       Serial.print("alcohol");
       Serial.flush();
-      String alcoholRead = Serial.readString();
-      toChar(alcoholRead);
-      alcoholRead.toCharArray(buffer, sizeof(alcoholRead));
-      alcohol.setValue(buffer);
-      connectClient();
-      con.feed(alcohol);
-      disconnectClient();
+      sensor = Serial.readString();
+      sensor.replace("\n", "");
+      httpCode = httpPOST("alcohol", sensor, "analog", clock11);
+      Serial.print(">HTTP Code: ");
+      Serial.println(httpCode);
+
+      delay(100);
+      Serial.print("light");
+      Serial.flush();
+      sensor = Serial.readString();
+      sensor.replace("\n", "");
+      httpCode = httpPOST("luminance", sensor, "analog", clock11);
+      Serial.print(">HTTP Code: ");
+      Serial.println(httpCode);
+
+      delay(100);
+      Serial.print("humidity");
+      Serial.flush();
+      sensor = Serial.readString();
+      sensor.replace("\n", "");
+      httpCode = httpPOST("humidity", sensor, "porcentage", clock11);
+      Serial.print(">HTTP Code: ");
+      Serial.println(httpCode);
+
+      delay(100);
+      Serial.print("distance");
+      Serial.flush();
+      sensor = Serial.readString();
+      sensor.replace("\n", "");
+      httpCode = httpPOST("distance", sensor, "cm", clock11);
+      Serial.print(">HTTP Code: ");
+      Serial.println(httpCode);
+
+      //disconectClient();
 
     }
   }
 }
+
+int httpPOST(String sensorName, String sensorValue, String unit, String clock11) {
+  String json = "{\"contributor\" :\"" + deviceName + "\", " +
+                "\"position\" :{\"latitude\":\"" + LATITUDE +
+                "\", \"longitude\": \"" + LONGITUDE + "\"}, " +
+                "\"time_stamp\" :\"" + clock11 + "\"," +
+                "\"" + sensorName + "\" :" + sensorValue + ", " +
+                "\"units\" :\"" + unit + "\"}";
+  String url = "http://" + valo_server + ":" + VALO_PORT + "/streams/demo/iot_board/" + sensorName;
+  //Serial.print(">DEBUG");
+  //Serial.println(url);
+  //Serial.print(">DEBUG");
+  //Serial.println(json);
+  emptySerial();
+  HTTPClient http;
+  http.begin(url);
+  http.addHeader("Content-Type", "application/json");
+  int httpCode = http.POST(json);
+  http.end();
+  return httpCode;
+
+}
+
+
+/*espClient.println("POST /streams/demo/iot_board/temperature HTTP/1.1");
+  espClient.print("HOST ");
+  espClient.print(valo_server);
+  espClient.print(":");
+  espClient.println(VALO_PORT);
+  espClient.println("Content-Type: application/json");*/                         // JSON content type
+/*espClient.print("{\"contributor\" :\""); espClient.print(deviceName);  espClient.print("\", ");
+  espClient.print("\"position\" :{\"latitude\":"); espClient.print(LATITUDE);
+  espClient.print("\", \"longitude\":"); espClient.print(LONGITUDE); espClient.print("}, ");
+  espClient.print("\"time_stamp\" :\"bla\",");
+  espClient.print("\"temperature\" :\""); espClient.print(tempRead);espClient.print(", ");
+  espClient.print("\"units\" :\"celsius\"}");*/
+/*espClient.print("Content-Length: ");
+  espClient.println(stringao.length()); // Content length
+  espClient.println(stringao);*/
 

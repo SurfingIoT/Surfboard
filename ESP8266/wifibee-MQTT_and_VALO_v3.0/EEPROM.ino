@@ -1,6 +1,6 @@
 void read_memory() {
   if ((char)EEPROM.read(511) != 'I') {
-    Serial.println("Memory not read Today... nor a good day!");
+    Serial.println("Memory not read Today...");
     emptySerial();
     return;
   }
@@ -12,63 +12,53 @@ void read_memory() {
     ssid += char(EEPROM.read(i));
   }
   password = "";
-  for (int i = 32; i < 96; i++)
+  for (int i = 32; i < 64; i++)
   {
     password += char(EEPROM.read(i));
   }
   mqtt_server = "";
-  for (int i = 96; i < 128; i++)
+  for (int i = 96; i < 160; i++)
   {
     mqtt_server += char(EEPROM.read(i));
   }
   queue_listener = "";
-  for (int i = 128; i < 192; i++)
+  for (int i = 160; i < 224; i++)
   {
     queue_listener += char(EEPROM.read(i));
   }
   queue_sensors = "";
-  for (int i = 192; i < 256; i++)
+  for (int i = 224; i < 288; i++)
   {
     queue_sensors += char(EEPROM.read(i));
   }
   queue_broadcast = "";
-  for (int i = 256; i < 320; i++)
+  for (int i = 288; i < 352; i++)
   {
     queue_broadcast += char(EEPROM.read(i));
   }
   queue_rendezvous = "";
-  for (int i = 320; i < 384; i++)
+  for (int i = 352; i < 416; i++)
   {
     queue_rendezvous += char(EEPROM.read(i));
   }
 
   opMode = "";
-  for (int i = 384; i < 388; i++)
+  for (int i = 416; i < 420; i++)
   {
     opMode += char(EEPROM.read(i));
   }
 
   valo_server = "";
-  for (int i = 388; i < 420; i++)
+  for (int i = 430; i < 494; i++)
   {
     valo_server += char(EEPROM.read(i));
+    valo_server.toCharArray(VALO_HOST, valo_server.length());
   }
+  valo_server.replace(" ", "");
+  valo_server.replace("\n", "");
 
-  latitude = "";
-  for (int i = 420; i < 452; i++)
-  {
-    latitude += char(EEPROM.read(i));
-  }
-  latitude.toCharArray(LATITUDE, latitude.length());
 
-  longitude = "";
-  for (int i = 452; i < 484; i++)
-  {
-    longitude += char(EEPROM.read(i));
-  }
-  longitude.toCharArray(LONGITUDE, longitude.length());
-  //valo_server.toCharArray(VALO_HOST, valo_server.length());
-  
+
   /*String interval = "";
     for (int i = 416; i < 234; i++)
     {
@@ -82,20 +72,12 @@ void read_memory() {
   queue_rendezvous.trim();
   queue_broadcast.trim();
   queue_listener.trim();
-  valo_server.trim();
-  latitude.trim();
-  longitude.trim();
-  
-  queue_sensors.replace("\0","");   //replace all instances of a given character with another character
-  queue_broadcast.replace("\0","");
-  queue_rendezvous.replace("\0","");
-  queue_listener.replace("\0","");
-  valo_server.replace("\0","");
-  latitude.replace("\0","");
-  longitude.replace("\0","");
 
-  
-  
+  queue_sensors.replace("\0", "");  //replace all instances of a given character with another character
+  queue_broadcast.replace("\0", "");
+  queue_rendezvous.replace("\0", "");
+  queue_listener.replace("\0", "");
+  valo_server.replace("\0", "");
   Serial.println("Finshed reading memory");
   Serial.println(ssid);
   Serial.println(password);
@@ -105,11 +87,7 @@ void read_memory() {
   Serial.println(queue_rendezvous);
   Serial.println(queue_listener);
   Serial.println(sensor_interval);
-  Serial.println(valo_server);
-  Serial.println(latitude);
-  Serial.println(longitude);
-  Serial.println(valo_server);
-  
+
   emptySerial();
 
 }
@@ -127,34 +105,30 @@ void save() {
     EEPROM.write(x + 96, mqtt_server[x]);
   }
   for (int x = 0; x < queue_listener.length(); x++) {
-    EEPROM.write(x + 128, queue_listener[x]);
+    EEPROM.write(x + 160, queue_listener[x]);
   }
   for (int x = 0; x < queue_sensors.length(); x++) {
-    EEPROM.write(x + 192, queue_sensors[x]);
+    EEPROM.write(x + 224, queue_sensors[x]);
   }
   for (int x = 0; x < queue_broadcast.length(); x++) {
-    EEPROM.write(x + 256, queue_broadcast[x]);
+    EEPROM.write(x + 288, queue_broadcast[x]);
   }
   for (int x = 0; x < queue_rendezvous.length(); x++) {
-    EEPROM.write(x + 320, queue_rendezvous[x]);
+    EEPROM.write(x + 352, queue_rendezvous[x]);
   }
 
   for (int x = 0; x < opMode.length(); x++) {
-    EEPROM.write(x + 384, opMode[x]);
+    EEPROM.write(x + 416, opMode[x]);
   }
 
   for (int x = 0; x < valo_server.length(); x++) {
-    EEPROM.write(x + 388, valo_server[x]);
+    EEPROM.write(x + 430, valo_server[x]);
   }
 
-  for (int x = 0; x < latitude.length(); x++) {
-    EEPROM.write(x + 420, latitude[x]);
-  }
 
-  for (int x = 0; x < longitude.length(); x++) {
-    EEPROM.write(x + 452, longitude[x]);
-  }
-  
+
+
+
   /*String temp = String(sensor_interval);
     temp.replace("\n","");
     temp.replace("\0","");

@@ -45,14 +45,13 @@ void setup_wifi() {
     wifi_state = 1;
     delay(500);
     Serial.print("green?255");
-    client.setServer(mqtt_server.c_str(), 1883);
-    client.setCallback(callback);
+
     delay(1500);
 
     Serial.print("green?0");
     emptySerial();
     // Start the server
-    server.begin();
+    //server.begin();
   }
 }
 

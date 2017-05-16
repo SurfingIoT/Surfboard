@@ -22,24 +22,24 @@ void createWebServer(int webtype){
     String s_t = String(sensor_interval);
     content += s_t + "'><br/>";
 
-    content += "<label>MQTT Broadcast Queue: </label><input name='queue_broadcast' length=64 value='";
+    content += "<label>MQTT Broadcast Queue: </label><input name='queue_broadcast' length=32 value='";
     content += queue_broadcast + "'><br/>";
 
-    content += "<label>MQTT Listener Queue: </label><input name='queue_listener' length=64 value='";
+    content += "<label>MQTT Listener Queue: </label><input name='queue_listener' length=32 value='";
     content += queue_listener + "'><br/>";
 
-    content += "<label>MQTT Sensors Queue: </label><input name='queue_sensors' length=64 value='";
+    content += "<label>MQTT Sensors Queue: </label><input name='queue_sensors' length=32 value='";
     content += queue_sensors + "'><br/>";
 
-    content += "<label>MQTT Rendezvous Queue: </label><input name='queue_rendezvous' length=64 value='";
+    content += "<label>MQTT Rendezvous Queue: </label><input name='queue_rendezvous' length=32 value='";
     content += queue_rendezvous + "'><br/>";
 
     // add by Jose Luiz for VALO treatment
     //uncoment next line for debug
-    content += "<label>OP Mode: </label>";
-    content += opMode + "<br/>";
-    content += "<label>VALO HOST: </label>";
-    content += valo_server + "<br/>";
+    //content += "<label>OP Mode: </label>";
+    //content += opMode + "<br/>";
+    //content += "<label>VALO HOST: </label>";
+    //content += String(VALO_HOST) + "<br/>";
 
     content += "<tr> <td>Operation Mode:</td> <td>MQTT";
     if (opMode == "MQTT"){
@@ -55,12 +55,6 @@ void createWebServer(int webtype){
     content += "<label>VALO Server: </label><input name='valo_server' length=32 value='"; //Valo Server config
     content += valo_server + "'><br/>";
 
-    content += "<label>Latitude: </label><input name='latitude' length=32 value='"; //Valo latitude
-    content += latitude + "'><br/>";
-    
-    content += "<label>Longitude: </label><input name='longitude' length=32 value='"; //Valo longitude
-    content += longitude + "'><br/>";
-
     content += "<br/><input type='submit'></form>";
     content += "</html>";
     server.send(200, "text/html", content);
@@ -72,6 +66,15 @@ void createWebServer(int webtype){
     toChar(sensors);
     server.send(200, "application/json", buffer);
   });
+  server.on("/mode-mqtt", []() {
+    opMode="MQTT";
+    server.send(200, "application/json", "{success: MQTT mode on}" );
+  });
+  server.on("/mode-rest", []() {
+    opMode="VALO";
+    server.send(200, "application/json", "{success: REST mode on}" );
+  });
+  
   server.on("/control", []() {
     String command = server.arg("thing");
     command.replace("=", "?");
@@ -89,23 +92,16 @@ void createWebServer(int webtype){
   server.on("/setup", []() {
     ssid = server.arg("ssid");
     password = server.arg("pass");
-    mqtt_server = server.arg("mqtt_server");
     queue_listener = server.arg("queue_listener");
     queue_broadcast = server.arg("queue_broadcast");
     queue_sensors = server.arg("queue_sensors");
     queue_rendezvous = server.arg("queue_rendezvous");
     String t_interval = server.arg("sensor_interval");
     sensor_interval = atoi(t_interval.c_str());
-
+    mqtt_server = server.arg("mqtt_server");
     opMode = server.arg("opMode");
-    
     valo_server = server.arg("valo_server");
-    
-    latitude = server.arg("latitude");
-    latitude.toCharArray(LATITUDE, latitude.length());
-    longitude = server.arg("longitude");
-    longitude.toCharArray(LONGITUDE, longitude.length());
-    //valo_server.toCharArray(VALO_HOST, valo_server.length()+1);
+    valo_server.toCharArray(VALO_HOST, valo_server.length());
     
     save();
     beep();
