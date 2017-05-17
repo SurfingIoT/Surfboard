@@ -8,8 +8,8 @@
 char CONTRIBUTOR_ID[] = "SurfBoardXX";
 char VALO_HOST[] = "192.168.0.110";
 int  VALO_PORT = 8888;
-char LATITUDE[] = "36.7585406465564";
-char LONGITUDE[] = "-4.3971722687";
+char LATITUDE[] = "36.689199";
+char LONGITUDE[] = "-4.445882";
 
 String commandString = "";         // a string to hold incoming data
 boolean commandComplete = false;  // whether the string is complete
@@ -17,7 +17,7 @@ char ssid_factory[] = "surfing-iot";
 char password_factory[] = "iotiotiot";
 String mqtt_server_factory = "iot.eclipse.org";
 
-String ssid = "iot-mobile";
+String ssid = "surfing-iot";
 String password = "iotiotiot";
 String mqtt_server = "iot.eclipse.org";
 String valo_server = "";
@@ -180,7 +180,7 @@ void loop() {
       String clock11 = Serial.readString();
       clock11.replace("\n", "");
       clock11.replace("/", "-");
-      clock11 = "";
+      clock11 = "2017-05-17T10:02:03.665Z";
       //clock11 = "ab";
 
       int httpCode;
@@ -241,7 +241,7 @@ int httpPOST(String sensorName, String sensorValue, String unit, String clock11)
   String json = "{\"contributor\" :\"" + deviceName + "\", " +
                 "\"position\" :{\"latitude\":\"" + LATITUDE +
                 "\", \"longitude\": \"" + LONGITUDE + "\"}, " +
-                "\"time_stamp\" :\"" + clock11 + "\"," +
+                "\"timestamp\" :\"" + clock11 + "\"," +
                 "\"" + sensorName + "\" :" + sensorValue + ", " +
                 "\"units\" :\"" + unit + "\"}";
   String url = "http://" + valo_server + ":" + VALO_PORT + "/streams/demo/iot_board/" + sensorName;
