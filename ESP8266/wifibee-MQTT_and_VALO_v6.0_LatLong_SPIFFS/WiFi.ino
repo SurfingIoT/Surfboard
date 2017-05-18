@@ -1,10 +1,14 @@
 void setup_wifi() {
+  WiFi.persistent(false);
+  WiFi.mode(WIFI_OFF);
+  WiFi.mode(WIFI_STA);
+  
   delay(100);
   if (ssid.length() > 0 && wifi_state == 0) {
-    WiFi.begin(ssid.c_str(), password.c_str());
+    if(WiFi.status() != WL_CONNECTED)     WiFi.begin(ssid.c_str(), password.c_str());
   }
   else {
-    WiFi.begin(ssid_factory, password_factory);
+    if(WiFi.status() != WL_CONNECTED)     WiFi.begin(ssid.c_str(), password.c_str());
   }
   delay(1500);
   //}

@@ -16,9 +16,9 @@ boolean commandComplete = false;  // whether the string is complete
 char ssid_factory[] = "surfing-iot";
 char password_factory[] = "iotiotiot";
 String mqtt_server_factory = "iot.eclipse.org";
-
-String ssid = "ASSIST";
-String password = "akihabara@1969";
+int DEEP_DEBUG=0;
+String ssid = "surfing-iot";
+String password = "iotiotiot";
 String mqtt_server = "iot.eclipse.org";
 String valo_server = "";
 String opMode = "MQTT";
@@ -88,7 +88,7 @@ void setup() {
   createWebServer(1);
   server.begin();
   //*********************************************************
-  
+
   setup_wifi();
   while (WiFi.status() != WL_CONNECTED) {
     beep();
@@ -110,6 +110,7 @@ void loop() {
       wifi_state = 0;
       connection_timeout = millis();
       setup_wifi(); //reconect WiFi
+      server.handleClient();
     }
     if (!client.connected() && wifi_state == 1) { //if MQTT disconected and WiFi state conected
       wifi_state = 1;
@@ -117,6 +118,7 @@ void loop() {
       Serial.print(mqtt_server);
       Serial.println(">.");
       reconnect();  //try to reconnect MQTT
+      server.handleClient();
     }
     if (!client.connected() && wifi_state == 0) {  //if MQTT disconected and WiFi state disconected
       connection_timeout = millis();
@@ -154,21 +156,20 @@ void loop() {
     }
   }
 
-  
+
   if (opMode == "VALO") { //publishes data to Valo
 
     if (wifi_state == 0) {
       setup_wifi();
     }
-    
+
     if (WiFi.status() != WL_CONNECTED) { //if MQTT disconected and WiFi state conected
       wifi_state = 0;
       connection_timeout = millis();
       setup_wifi(); //reconect WiFi
 
-    }else{
+    } else {
       //client.loop();
-
       long now = millis();
       if (sensor_interval > 0 && now - lastMsg > sensor_interval) {
         lastMsg = now;
@@ -179,9 +180,9 @@ void loop() {
         clock11.replace("/", "");
         clock11.replace(" ", "_");
         clock11.replace(":", "");
-        Serial.print(clock11);      
+        //Serial.print(clock11);
         //clock11 = "";
-        //clock11 = "05162017_170030";
+        clock11 = "2017-05-17T10:00:00.000Z";
 
         int httpCode;
         //Read Sensors and send to Valo
@@ -191,6 +192,8 @@ void loop() {
         Serial.flush();
         String sensor = Serial.readString();
         sensor.replace("\n", "");
+        server.handleClient();
+
         httpCode = httpPOST("temperature", sensor, "celsius", clock11);
         Serial.print(">HTTP Code: ");
         Serial.println(httpCode);
@@ -200,6 +203,7 @@ void loop() {
         Serial.flush();
         sensor = Serial.readString();
         sensor.replace("\n", "");
+        server.handleClient();
         httpCode = httpPOST("alcohol", sensor, "analog", clock11);
         Serial.print(">HTTP Code: ");
         Serial.println(httpCode);
@@ -209,15 +213,17 @@ void loop() {
         Serial.flush();
         sensor = Serial.readString();
         sensor.replace("\n", "");
+        server.handleClient();
         httpCode = httpPOST("luminance", sensor, "analog", clock11);
         Serial.print(">HTTP Code: ");
         Serial.println(httpCode);
-  
+
         delay(100);
         Serial.print("humidity");
         Serial.flush();
         sensor = Serial.readString();
         sensor.replace("\n", "");
+        server.handleClient();
         httpCode = httpPOST("humidity", sensor, "porcentage", clock11);
         Serial.print(">HTTP Code: ");
         Serial.println(httpCode);
@@ -227,6 +233,7 @@ void loop() {
         Serial.flush();
         sensor = Serial.readString();
         sensor.replace("\n", "");
+        server.handleClient();
         httpCode = httpPOST("distance", sensor, "cm", clock11);
         Serial.print(">HTTP Code: ");
         Serial.println(httpCode);
@@ -239,14 +246,14 @@ int httpPOST(String sensorName, String sensorValue, String unit, String clock11)
   String json = "{\"contributor\" :\"" + deviceName + "\", " +
                 "\"position\" :{\"latitude\":\"" + LATITUDE +
                 "\", \"longitude\": \"" + LONGITUDE + "\"}, " +
-                "\"time_stamp\" :\"" + clock11 + "\"," +
+                "\"timestamp\" :\"" + clock11 + "\"," +
                 "\"" + sensorName + "\" :" + sensorValue + ", " +
                 "\"units\" :\"" + unit + "\"}";
   String url = "http://" + valo_server + ":" + VALO_PORT + "/streams/demo/iot_board/" + sensorName;
-  //Serial.print(">DEBUG");
-  //Serial.println(url);
-  //Serial.print(">DEBUG");
-  //Serial.println(json);
+  if(DEEP_DEBUG==1) Serial.print(">DEBUG");
+  if(DEEP_DEBUG==1) Serial.println(url);
+  if(DEEP_DEBUG==1) Serial.print(">DEBUG");
+  if(DEEP_DEBUG==1) Serial.println(json);
   emptySerial();
   HTTPClient http;
   http.begin(url);

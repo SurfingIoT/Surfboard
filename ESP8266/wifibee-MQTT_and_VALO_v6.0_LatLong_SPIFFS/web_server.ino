@@ -2,7 +2,7 @@ String content;
 String st;
 int statusCode;
 
-void createWebServer(int webtype){
+void createWebServer(int webtype) {
   server.on("/", []() {
     IPAddress ip = WiFi.softAPIP();
     String ipStr = String(ip[0]) + '.' + String(ip[1]) + '.' + String(ip[2]) + '.' + String(ip[3]);
@@ -37,37 +37,37 @@ void createWebServer(int webtype){
     // add by Jose Luiz for VALO treatment
     //uncoment next lines for debug
     /*content += "<label>OP Mode: </label>";
-    content += opMode + "<br/>";
-    content += "<label>VALO HOST: </label>";
-    content += String(VALO_HOST) + "<br/>";
+      content += opMode + "<br/>";
+      content += "<label>VALO HOST: </label>";
+      content += String(VALO_HOST) + "<br/>";
 
-    content += "<label>VALO HOST SIZE: </label>";
-    content += String(sizeof(VALO_HOST)) + "<br/>";
+      content += "<label>VALO HOST SIZE: </label>";
+      content += String(sizeof(VALO_HOST)) + "<br/>";
 
 
-    
-    content += "<label>LATITUDE: </label>";
-    content += String(LATITUDE) + "<br/>";
-    content += "<label>LONGITUDE: </label>";
-    content += String(LONGITUDE) + "<br/>";
-*/
+
+      content += "<label>LATITUDE: </label>";
+      content += String(LATITUDE) + "<br/>";
+      content += "<label>LONGITUDE: </label>";
+      content += String(LONGITUDE) + "<br/>";
+    */
     content += "<tr> <td>Operation Mode:</td> <td>MQTT";
-    if (opMode == "MQTT"){
+    if (opMode == "MQTT") {
       content += "<input name='opMode' type='radio' value='MQTT' checked></td>"; //MQTT mode
       content += "<td>VALO";
       content += "<input name='opMode' type='radio' value='VALO' ></td></tr><br/>";  //VALO mode
-    }else{
+    } else {
       content += "<input name='opMode' type='radio' value='MQTT' ></td>"; //MQTT mode
       content += "<td>VALO";
       content += "<input name='opMode' type='radio' value='VALO' checked></td></tr><br/>";  //VALO mode
     }
-    
+
     content += "<label>VALO Server: </label><input name='Valo_Server' length=32 value='"; //Valo Server config
     content += valo_server + "'><br/>";
 
     content += "<label>Latitude: </label><input name='latitude' length=16 value='"; //Valo latitude
     content += latitude + "'><br/>";
-    
+
     content += "<label>Longitude: </label><input name='longitude' length=16 value='"; //Valo longitude
     content += longitude + "'><br/>";
 
@@ -81,6 +81,17 @@ void createWebServer(int webtype){
     String sensors = Serial.readString();
     toChar(sensors);
     server.send(200, "application/json", buffer);
+  });
+  server.on("/debug", []() {
+    DEEP_DEBUG= DEEP_DEBUG==0 ? 1 : 0;
+
+    if(DEEP_DEBUG==1) {
+      server.send(200, "application/json", "{success: deep debug on}" );
+    }
+    else {
+      server.send(200, "application/json", "{success: deep debug off}" );
+    }
+    
   });
   server.on("/control", []() {
     String command = server.arg("thing");
@@ -118,10 +129,10 @@ void createWebServer(int webtype){
 
     opMode = server.arg("opMode");
     //valo_server += '\0';
-    valo_server.toCharArray(VALO_HOST, valo_server.length()+1);
+    valo_server.toCharArray(VALO_HOST, valo_server.length() + 1);
     //VALO_HOST = (valo_server.c_str());
     //VALO_HOST[13]='\0';
-    
+
     save();
     beep();
     server.send(200, "application/json", "{success: restart your iot-surfboard}" );
