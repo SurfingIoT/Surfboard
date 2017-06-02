@@ -5,14 +5,13 @@ EnergyMonitor emon1;                   // Create an instance
 
 void setup() {
   board.setup(9600);  
-  //myBlink();  //rgb leds test
   //board.clockAdjustment();  
   things.add("transistor",DIGITAL,  6);
   things.add("relay",     DIGITAL,  4);
   things.add("speaker",   DIGITAL,  5);
   things.add("alcohol",   ANALOG,   0);
   things.add("pot",       ANALOG,   1);
-  things.add("distance",  CUSTOM,   distance, true);
+//  things.add("distance",  CUSTOM,   distance, true);
   things.add("clock",     CUSTOM,   rtc, true);
   things.add("temp",      CUSTOM,   temperature, true);
   things.add("humidity",  CUSTOM,   humidity, true);

@@ -26,7 +26,7 @@ void light_test() {
   Serial.print(board.light());
   Serial.print("   potentiometer: ");
   Serial.println(board.potentiometer());
-  things.wait(200);
+  things.wait(500);
 }
 
 void temperature_test() {
@@ -42,7 +42,7 @@ void temperature_test() {
   Serial.print(board.potentiometer());
   Serial.print("   Proportional: ");
   Serial.println(t);
-  things.wait(200);
+  things.wait(500);
 }
 
 void humidity_test() {
@@ -58,7 +58,7 @@ void humidity_test() {
   Serial.print(board.potentiometer());
   Serial.print("   Proportional: ");
   Serial.println(t);
-  things.wait(200);
+  things.wait(500);
 }
 
 void alcohol_test() {

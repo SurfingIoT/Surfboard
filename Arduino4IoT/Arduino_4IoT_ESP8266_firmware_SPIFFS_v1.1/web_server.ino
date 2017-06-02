@@ -74,6 +74,6 @@ void createWebServer(int webtype) {
     save();
     beep();
 
-    server.send(200, "application/json", "{success: restart your iot-surfboard}" );
+    server.send(200, "application/json", "{success: restart your board}" );
   });
 }

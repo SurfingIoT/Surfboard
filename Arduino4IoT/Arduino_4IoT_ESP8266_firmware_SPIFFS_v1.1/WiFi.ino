@@ -7,8 +7,8 @@ void setup_wifi() {
     WiFi.begin(ssid_factory, password_factory);
   }
   delay(1500);
-  //}
   Serial.print("red?0");
+  delay(500);
   Serial.print("blue?255");
   delay(500);
   //will try for 15 seconds...
@@ -18,7 +18,6 @@ void setup_wifi() {
     //**********  adicionado por JL  **********
     server.handleClient();
     //*****************************************
-
     delay(500);
     Serial.print("blue?255");
     delay(500);
@@ -49,9 +48,8 @@ void setup_wifi() {
     delay(1500);
 
     Serial.print("green?0");
-    emptySerial();
-    // Start the server
-    //server.begin();
+    //emptySerial();
+    delay(500);
   }
 }
 

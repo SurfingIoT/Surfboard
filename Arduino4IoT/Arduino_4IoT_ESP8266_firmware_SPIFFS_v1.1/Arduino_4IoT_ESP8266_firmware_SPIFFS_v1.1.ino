@@ -42,7 +42,7 @@ void setup() {
   Serial.print("start");
   emptySerial();
   emptySerial();
-  delay(7000);
+  delay(4000);
   emptySerial();
   Serial.print("name");   //request Surfboard Id
   //delay(500);
