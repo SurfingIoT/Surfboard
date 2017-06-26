@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		13E1AE381A3D5FA804975F83 /* libPods-IotSurfboardClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 291AC8E00F05B92DD351FB11 /* libPods-IotSurfboardClient.a */; };
+		393E78D71D4985B9004306D4 /* ConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 393E78D61D4985B9004306D4 /* ConfigViewController.m */; };
 		39FFC7D21D469CA100DAF182 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 39FFC7D11D469CA100DAF182 /* main.m */; };
 		39FFC7D51D469CA100DAF182 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 39FFC7D41D469CA100DAF182 /* AppDelegate.m */; };
 		39FFC7DB1D469CA200DAF182 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39FFC7D91D469CA200DAF182 /* Main.storyboard */; };
@@ -24,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		291AC8E00F05B92DD351FB11 /* libPods-IotSurfboardClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IotSurfboardClient.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		393E78D51D4985B9004306D4 /* ConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigViewController.h; sourceTree = "<group>"; };
+		393E78D61D4985B9004306D4 /* ConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigViewController.m; sourceTree = "<group>"; };
 		39FFC7CD1D469CA100DAF182 /* IotSurfboardClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IotSurfboardClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39FFC7D11D469CA100DAF182 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		39FFC7D31D469CA100DAF182 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -87,6 +90,8 @@
 				39FFC7FC1D469ED600DAF182 /* SensoresCollectionViewController.m */,
 				39FFC7F81D469EC000DAF182 /* AtoresTableViewController.h */,
 				39FFC7F91D469EC000DAF182 /* AtoresTableViewController.m */,
+				393E78D51D4985B9004306D4 /* ConfigViewController.h */,
+				393E78D61D4985B9004306D4 /* ConfigViewController.m */,
 				39FFC7F71D469DE000DAF182 /* CustomViews */,
 				39FFC7EA1D469D2200DAF182 /* Model */,
 				39FFC7D01D469CA100DAF182 /* Supporting Files */,
@@ -271,6 +276,7 @@
 			files = (
 				39FFC7ED1D469D3600DAF182 /* DevicesExternos.m in Sources */,
 				39FFC7F51D469DDB00DAF182 /* TempCellCollectionViewCell.m in Sources */,
+				393E78D71D4985B9004306D4 /* ConfigViewController.m in Sources */,
 				39FFC7D51D469CA100DAF182 /* AppDelegate.m in Sources */,
 				39FFC7FD1D469ED600DAF182 /* SensoresCollectionViewController.m in Sources */,
 				39FFC7FA1D469EC000DAF182 /* AtoresTableViewController.m in Sources */,
@@ -393,11 +399,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 4;
 				INFOPLIST_FILE = IotSurfboardClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.construtor.IotSurfboardClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -407,11 +415,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 4;
 				INFOPLIST_FILE = IotSurfboardClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.construtor.IotSurfboardClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};

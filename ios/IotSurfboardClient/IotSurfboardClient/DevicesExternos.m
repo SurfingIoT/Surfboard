@@ -16,6 +16,10 @@
     
     dispatch_once(&pred, ^{
         sharedClient = [[self alloc] init];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        sharedClient.mqttBroker = [defaults objectForKey:@"mqttbroker"];
+        sharedClient.mqttSensorsChannel = [defaults objectForKey:@"mqttSensorsChannel"];
+        sharedClient.mqttPublichChannel = [defaults objectForKey:@"mqttPublichChannel"];
     });
     
     return sharedClient;
@@ -49,6 +53,30 @@
     return _distanceSonar;
 }
 
+-(NSString *)mqttBroker{
+    if (!_mqttBroker || [_mqttBroker isEqualToString:@""]){
+        _mqttBroker = @"iot.eclipse.org";
+    }
+    
+    return _mqttBroker;
+}
+
+-(NSString *)mqttPublichChannel{
+    if (!_mqttPublichChannel || [_mqttPublichChannel isEqualToString:@""]){
+        _mqttPublichChannel = @"globalcode/things/surfboard177/publish";
+    }
+    
+    return _mqttPublichChannel;
+}
+
+-(NSString *)mqttSensorsChannel{
+    if (!_mqttSensorsChannel || [_mqttSensorsChannel isEqualToString:@""]){
+        _mqttSensorsChannel = @"globalcode/things/surfboard177";
+    }
+    
+    return _mqttSensorsChannel;
+}
+
 -(void)connect{
     // create the client with a unique client ID
     NSString *clientID = [[NSUUID UUID] UUIDString];
@@ -57,10 +85,10 @@
     _client = [[MQTTClient alloc] initWithClientId:clientID];
     
     // connect to the MQTT server
-    [_client connectToHost:URL_MQTT_BROKER completionHandler:^(NSUInteger code) {
+    [_client connectToHost:_mqttBroker completionHandler:^(NSUInteger code) {
         if (code == ConnectionAccepted) {
             // when the client is connected, subscribe to the topic to receive message.
-            [_client subscribe:MQTT_SENSORS_CHANNEL withCompletionHandler:^(NSArray *grantedQos) {
+            [_client subscribe:_mqttSensorsChannel withCompletionHandler:^(NSArray *grantedQos) {
                 NSLog(@"%@", grantedQos);
             }];
         }
@@ -81,7 +109,7 @@
     // when the client is connected, send a MQTT message
     NSString *command = [@"speaker?" stringByAppendingString:action ? @"1" : @"0"];
     [_client publishString:command
-                   toTopic:MQTT_PUBLISH_CHANNEL
+                   toTopic:_mqttPublichChannel
                    withQos:AtMostOnce
                     retain:NO
          completionHandler:^(int mid) {
@@ -92,7 +120,7 @@
 -(void)ledRed:(BOOL)action{
     NSString *command = [@"red?" stringByAppendingString:action ? @"255" : @"0"];
     [_client publishString:command
-                   toTopic:MQTT_PUBLISH_CHANNEL
+                   toTopic:_mqttPublichChannel
                    withQos:AtMostOnce
                     retain:NO
          completionHandler:^(int mid) {
@@ -103,7 +131,7 @@
 -(void)ledBlue:(BOOL)action{
     NSString *command = [@"blue?" stringByAppendingString:action ? @"255" : @"0"];
     [_client publishString:command
-                   toTopic:MQTT_PUBLISH_CHANNEL
+                   toTopic:_mqttPublichChannel
                    withQos:AtMostOnce
                     retain:NO
          completionHandler:^(int mid) {
@@ -114,7 +142,7 @@
 -(void)ledGreen:(BOOL)action{
     NSString *command = [@"green?" stringByAppendingString:action ? @"255" : @"0"];
     [_client publishString:command
-                   toTopic:MQTT_PUBLISH_CHANNEL
+                   toTopic:_mqttPublichChannel
                    withQos:AtMostOnce
                     retain:NO
          completionHandler:^(int mid) {
@@ -125,7 +153,7 @@
 -(void)lights:(BOOL)action{
     NSString *command = [@"relay?" stringByAppendingString:action ? @"1" : @"0"];
     [_client publishString:command
-                   toTopic:MQTT_PUBLISH_CHANNEL
+                   toTopic:_mqttPublichChannel
                    withQos:AtMostOnce
                     retain:NO
          completionHandler:^(int mid) {

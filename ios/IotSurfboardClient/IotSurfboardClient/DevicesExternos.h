@@ -20,14 +20,19 @@
  * *************************************************************************
  */
 
-#define URL_MQTT_BROKER @"10.0.1.11"
-#define MQTT_SENSORS_CHANNEL @"myhomework/surfboard177/sensors"
-#define MQTT_PUBLISH_CHANNEL @"myhomework/surfboard177"
+//#define URL_MQTT_BROKER @"iot.eclipse.org"
+//#define MQTT_SENSORS_CHANNEL @"myhomework/surfboard177/sensors"
+//#define MQTT_PUBLISH_CHANNEL @"myhomework/surfboard177"
 
 /**
  *  Class to work with the Iot Surfboard
  */
 @interface DevicesExternos : NSObject
+
+@property (strong, nonatomic) NSString *mqttBroker;
+@property (strong, nonatomic) NSString *mqttSensorsChannel;
+@property (strong, nonatomic) NSString *mqttPublichChannel;
+
 
 /**
  *  MQtt Client
